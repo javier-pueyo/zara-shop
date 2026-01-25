@@ -9,7 +9,7 @@ const Hero = ({ hero }) => {
       <Typewriter
         text={title}
         tag="h1"
-        delay={100}
+        delay={70}
       />
 
       <h2>{name}</h2>

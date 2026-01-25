@@ -79,18 +79,54 @@ const Contact = ({ contact }) => {
             </div>
             <form onSubmit={submitForm}>
                 <label className={styles['contact__wrapper']}>
-                    <input type="text" name="name" value={contactForm.name} onChange={changeInput} placeholder="Name" />
+                    <input
+                        id="name"
+                        aria-label="Name"
+                        type="text"
+                        name="name"
+                        value={contactForm.name}
+                        onChange={changeInput}
+                        placeholder="Name"
+                    />
                 </label>
                 <label className={styles['contact__wrapper']}>
-                    <input className={errors.email ? styles.error : ''} type="email" name="email" value={contactForm.email} onChange={changeInput} placeholder="Email" />
-                    {errors.email && <span className={styles.errorMessage}>Required</span>}
+                    <input
+                        id="email"
+                        aria-label="Email"
+                        className={errors.email ? styles.error : ''}
+                        type="email"
+                        name="email"
+                        value={contactForm.email}
+                        onChange={changeInput}
+                        placeholder="Email"
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
+                    />
+                    {errors.email && <span id="email-error" role="alert" className={styles.errorMessage}>Required</span>}
                 </label>
                 <label className={styles['contact__wrapper']}>
-                    <textarea className={errors.message ? styles.error : ''} name="message" value={contactForm.message} onChange={changeInput} placeholder="Message"></textarea>
-                    {errors.message && <span className={styles.errorMessage}>Required</span>}
+                    <textarea
+                        id="message"
+                        aria-label="Message"
+                        className={errors.message ? styles.error : ''}
+                        name="message"
+                        value={contactForm.message}
+                        onChange={changeInput}
+                        placeholder="Message"
+                        aria-invalid={!!errors.message}
+                        aria-describedby={errors.message ? "message-error" : undefined}
+                    ></textarea>
+                    {errors.message && <span id="message-error" role="alert" className={styles.errorMessage}>Required</span>}
                 </label>
-                <label className={styles['contact__wrapper']} style={{ display: 'none' }}>
-                    <input type="text" name="phone" value={contactForm.phone} onChange={changeInput} tabIndex="-1" autoComplete="off" />
+                <label className={styles['contact__wrapper']} style={{ display: 'none' }} aria-hidden="true">
+                    <input
+                        type="text"
+                        name="phone"
+                        value={contactForm.phone}
+                        onChange={changeInput}
+                        tabIndex="-1"
+                        autoComplete="off"
+                    />
                 </label>
                 <div className="row">
                     <div className={`${styles['checkbox']} col`}>
@@ -101,6 +137,7 @@ const Contact = ({ contact }) => {
                             checked={contactForm.termsx}
                             onChange={changeInput}
                             required
+                            aria-invalid={!!errors.termsx}
                         />
                         <label className={`${styles['checkbox__label']} ${errors.termsx ? styles.errorMessage : ''}`} htmlFor="termsx">I have read and accepted <a href="#a" target="_blank" rel="noopener noreferrer">the privacy policies</a> of the website.</label>
                     </div>

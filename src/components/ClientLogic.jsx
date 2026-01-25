@@ -1,14 +1,31 @@
 'use client';
-
 import { useEffect } from 'react';
-import initializeGA from '@/utilities/gaConfig';
-import initializeGTM from '@/utilities/gtmConfig';
 
-export default function ClientLogic() {
+const ClientLogic = () => {
     useEffect(() => {
-        initializeGA();
-        initializeGTM();
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // Trigger when 10% visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Animate only once
+                }
+            });
+        }, observerOptions);
+
+        // Select all h2s
+        const headings = document.querySelectorAll('h2');
+        headings.forEach(h2 => observer.observe(h2));
+
+        return () => observer.disconnect();
     }, []);
 
-    return null; // This component doesn't render anything
-}
+    return null; // Logic only
+};
+
+export default ClientLogic;

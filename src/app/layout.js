@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script';
+import Background from "@/components/background/background";
 import "@/index.scss";
 
 const geistSans = Geist({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Background />
         {children}
         <Script src="https://kit.fontawesome.com/87293197e8.js" crossOrigin="anonymous" strategy="lazyOnload" />
       </body>

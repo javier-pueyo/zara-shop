@@ -1,0 +1,101 @@
+@use '../../abstracts' as *;
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: #130128; // Requested base color
+
+    &__blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.5; // Good balance
+        animation-iteration-count: infinite;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+        // Blob 1: Purple
+        &:nth-child(1) {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            opacity: 0.30;
+            background: #5a189a; // Vivid purple (lighter)
+            animation-name: moveBlob1;
+            animation-duration: 10s; // Faster (was 25s)
+        }
+
+        // Blob 2: Deep Blue/Indigo
+        &:nth-child(2) {
+            bottom: -10%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            opacity: 0.50;
+            background: #3f37c9; // Strong Indigo
+            animation-name: moveBlob2;
+            animation-duration: 15s; // Faster (was 30s)
+        }
+
+        // Blob 3: Pink/Magenta Highlight
+        &:nth-child(3) {
+            top: 40%;
+            left: 40%;
+            width: 40vw;
+            height: 40vw;
+            background: #173fb5; // Magenta
+            opacity: 0.30;
+            animation-name: moveBlob3;
+            animation-duration: 15s; // Faster (was 35s)
+        }
+    }
+}
+
+@keyframes moveBlob1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(50%, 50%) scale(1.1); // Was 10%
+    }
+
+    66% {
+        transform: translate(-30%, 60%) scale(0.9); // Was -5%, 20%
+    }
+}
+
+@keyframes moveBlob2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    33% {
+        transform: translate(-40%, -40%) scale(1.1); // Was -10%
+    }
+
+    66% {
+        transform: translate(30%, -60%) scale(0.9); // Was 5%, -20%
+    }
+}
+
+@keyframes moveBlob3 {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-40%, 40%) scale(1.2); // Was -10%, 10%
+    }
+}

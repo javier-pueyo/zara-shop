@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import styles from './typewriter.module.scss';
 
-const Typewriter = ({ text, delay = 100, tag: Tag = 'span' }) => {
+const Typewriter = ({ text, delay = 50, tag: Tag = 'span' }) => {
     const [displayedText, setDisplayedText] = useState('');
 
     useEffect(() => {

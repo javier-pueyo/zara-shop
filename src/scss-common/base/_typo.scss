@@ -48,7 +48,7 @@ body {
   color: $color-white;
   @include base-typo(16, $font-weight-regular, 0);
   line-height: $line-height-base;
-  background-color: $color-primary;
+  // background-color: $color-primary;
   @include scrollbars;
 }
 
@@ -122,6 +122,16 @@ h2 {
   @include base-typo(32, $font-weight-bold, 100);
   line-height: 1;
   margin-bottom: $spacers-l;
+
+  // Animation initial state
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   @include desktop {
     font-size: 7vw;
