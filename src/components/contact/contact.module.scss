@@ -5,20 +5,25 @@
         margin-left: 7vw;
         margin-right: 7vw;
     }
+
     &__intro {
         @include base-flex(flex, space-between, baseline);
         margin-bottom: $spacers-container-l;
+
         & h2 {
             line-height: 1.2;
         }
+
         & p {
             text-align: right;
             margin-bottom: 1rem;
+
             @include desktop-max {
                 margin-left: -$spacers-container-l;
             }
         }
     }
+
     & form {
         @include desktop {
             margin-left: 7vw;
@@ -27,17 +32,22 @@
 
 
     }
+
     & label {
         display: block;
         margin-bottom: $spacers-l;
     }
-    & input:not(.checkbox__input), & textarea {
-        @include desktop {
+
+    & input:not(.checkbox__input),
+    & textarea {
+        /*  @include desktop {
             margin-bottom: $spacers-container-l;
-        }
-        @include desktop-max {
+        } */
+
+        /*  @include desktop-max {
             margin-bottom: $spacers-xl;
-        }
+        } */
+
         width: 100%;
         background: transparent;
         outline: none;
@@ -47,18 +57,23 @@
         border-radius: $spacers-s;
         padding: $spacers-m $spacers-l $spacers-m $spacers-l;
         line-height: 1.5;
+        margin-bottom: $spacers-container-l;
     }
+
     & textarea {
         height: 20vh;
     }
+
     .checkbox {
         @include desktop-max {
             margin-top: $spacers-xl;
             margin-bottom: $spacers-xl;
         }
+
         @include base-flex(flex, flex-start, flex-start);
+
         &__input {
-            @include base-flex(inline-flex, center, center);
+            @include base-flex(inline-flex, start, center);
             appearance: none;
             background-color: $color-primary;
             margin: 0;
@@ -71,7 +86,7 @@
             aspect-ratio: 1;
             cursor: pointer;
         }
-            
+
         &__input::before {
             content: '\f00c';
             font-family: "Font Awesome 6 Free";
@@ -86,22 +101,44 @@
             transition: 120ms transform ease-in-out;
             box-shadow: inset 1em 1em var(--form-control-color);
         }
-            
+
         &__input.checked::before {
             transform: scale(1);
         }
+
         &__label {
             display: inline-block;
             max-width: 350px;
             line-height: 1.5;
             margin-bottom: 0;
+
             @include desktop {
                 margin-top: -0.75rem;
             }
         }
+
     }
-    & button {
+
+    &__wrapper {
+        display: block;
+        position: relative;
+        margin-bottom: $spacers-l;
+    }
+
+    button {
         @include base-size(28);
         margin-top: -1rem;
+    }
+
+    .error {
+        border-color: #FF4D4D !important;
+    }
+
+    .errorMessage {
+        color: #FF4D4D;
+        font-size: 0.8rem;
+        display: block;
+        position: absolute;
+        bottom: 1rem;
     }
 }

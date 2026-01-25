@@ -1,33 +1,10 @@
 @use '../../abstracts' as *;
 
-.hero {
-    @include base-flex(flex, space-between, stretch, column);
-
-    @include desktop {
-        min-height: 70vh;
-    }
-
-    @include desktop-max {
-        min-height: 53vh;
-    }
-
-    & h2 {
-        text-align: right;
-
-        @include desktop-max {
-            max-width: 50%;
-            margin-left: auto;
-        }
-    }
-}
-
 .wrapper {
     display: inline-block;
     position: relative;
 }
 
-// Clase estándar de la industria para ocultar elementos visualmente
-// pero dejarlos accesibles para SEO y Screen Readers
 .srOnly {
     position: absolute;
     width: 1px;
@@ -64,7 +41,6 @@
     }
 }
 
-// Tu animación de cursor original (INTACTA)
 @keyframes blink {
     0% {
         opacity: 1;

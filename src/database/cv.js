@@ -1,6 +1,6 @@
 export const CV = {
     info: {
-        logoUrl: './assets/img/favicon-180x180.png',
+        logoUrl: '/portfolio/assets/img/favicon-180x180.png',
         name: 'Pueyo Mir',
         email: 'hola@pueyomir.com',
         linkedin: 'https://www.linkedin.com/in/pueyojavier/',
@@ -39,7 +39,7 @@ export const CV = {
     aboutUs: {
         description: 'Passionate about web technologies. I love working at the intersection of creativity and user friendly interfaces. I create memorable web experiences.',
         image: {
-            url: './assets/img/pueyomir_javier-pueyo.jpg',
+            url: '/portfolio/assets/img/pueyomir_javier-pueyo.jpg',
             name: 'javier pueyo mir'
         }
     },
@@ -52,7 +52,7 @@ export const CV = {
             skills: ['React', 'Redux', 'Json server', 'SCSS'],
             image: {
                 name: 'project react codes nook',
-                url: './assets/img/projects/project-codes-nook.jpg',
+                url: '/portfolio/assets/img/projects/project-codes-nook.jpg',
             }
         },
         {
@@ -63,7 +63,7 @@ export const CV = {
             skills: ['React', 'Redux', 'Axios', 'SCSS'],
             image: {
                 name: 'project pokedex react',
-                url: './assets/img/projects/project-pokedex.jpg',
+                url: '/portfolio/assets/img/projects/project-pokedex.jpg',
             }
         },
         {
@@ -74,7 +74,7 @@ export const CV = {
             skills: ['Angular', 'Json server', 'SCSS'],
             image: {
                 name: 'project angular Journey',
-                url: './assets/img/projects/project-upgrade-journey.jpg',
+                url: '/portfolio/assets/img/projects/project-upgrade-journey.jpg',
             }
         },
         {
@@ -85,25 +85,25 @@ export const CV = {
             skills: ['JS', 'SCSS'],
             image: {
                 name: 'project javacript molebuster videogame',
-                url: './assets/img/projects/project-molebuster.jpg',
+                url: '/portfolio/assets/img/projects/project-molebuster.jpg',
             }
         }
     ],
     educations: [
         {
-            logo: './assets/img/entities_logos/upgradehub.svg',
+            logo: '/portfolio/assets/img/entities_logos/upgradehub.svg',
             entity: 'UpgradeHub',
             specialty: 'Bootcamp Frontend Dev',
             date: '2022',
         },
         {
-            logo: './assets/img/entities_logos/bau.svg',
+            logo: '/portfolio/assets/img/entities_logos/bau.svg',
             entity: 'Bau',
             specialty: 'University Degree in Design ',
             date: '2014 - 2018',
         },
         {
-            logo: './assets/img/entities_logos/emav.svg',
+            logo: '/portfolio/assets/img/entities_logos/emav.svg',
             entity: 'EMAV',
             specialty: 'CertHE Multimedia',
             date: '2012 - 2014',
@@ -111,31 +111,31 @@ export const CV = {
     ],
     experiences: [
         {
-            logo: './assets/img/entities_logos/Adgoritmo.svg',
+            logo: '/portfolio/assets/img/entities_logos/Adgoritmo.svg',
             entity: 'Adgortimo',
             specialty: 'UI designer & SEO technician',
             date: '2022 - present',
         },
         {
-            logo: './assets/img/entities_logos/DoriaGM.svg',
+            logo: '/portfolio/assets/img/entities_logos/DoriaGM.svg',
             entity: 'DGM',
             specialty: 'UI designer & developer',
             date: 'July 2019 - February 2022',
         },
         {
-            logo: './assets/img/entities_logos/KEC.svg',
+            logo: '/portfolio/assets/img/entities_logos/KEC.svg',
             entity: 'KEC',
             specialty: 'UX/UI Designer',
             date: 'July 2018 - May 2019',
         },
         {
-            logo: './assets/img/entities_logos/tuliapps.svg',
+            logo: '/portfolio/assets/img/entities_logos/tuliapps.svg',
             entity: 'TuliApps',
             specialty: 'UI Designer',
             date: 'November 2017 - April 2018',
         },
         {
-            logo: './assets/img/entities_logos/onionlab.svg',
+            logo: '/portfolio/assets/img/entities_logos/onionlab.svg',
             entity: 'OnionLab',
             specialty: 'Grant Holder Motion Graphics',
             date: 'May - June 2014',
