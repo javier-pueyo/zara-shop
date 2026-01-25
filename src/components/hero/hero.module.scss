@@ -1,43 +1,22 @@
 @use '../../abstracts' as *;
 
 .hero {
-    @include base-flex(flex, space-between, strech, column);
+    @include base-flex(flex, space-between, stretch, column);
 
     @include desktop {
         min-height: 70vh;
     }
+
     @include desktop-max {
         min-height: 53vh;
-    }   
-
-    & h1 {
-        @include desktop {
-            margin-top: 30px;
-        }
-        &::after {
-            content: '';
-            display: inline-block;
-            width: 2px;
-            height: 1em;
-            vertical-align: middle;
-            background-color: rgba(255, 255, 255, 0.545);
-            margin-left: 0.25em;
-            animation: blink .6s linear infinite alternate;
-        }
     }
 
     & h2 {
         text-align: right;
+
         @include desktop-max {
             max-width: 50%;
             margin-left: auto;
-        }  
+        }
     }
-}
-
-@keyframes blink {
-    0% {opacity: 1;}
-    40% {opacity: 1;}
-    60% {opacity: 0;}
-    100% {opacity: 0;}
 }

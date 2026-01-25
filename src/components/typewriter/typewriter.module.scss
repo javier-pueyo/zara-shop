@@ -1,0 +1,84 @@
+@use '../../abstracts' as *;
+
+.hero {
+    @include base-flex(flex, space-between, stretch, column);
+
+    @include desktop {
+        min-height: 70vh;
+    }
+
+    @include desktop-max {
+        min-height: 53vh;
+    }
+
+    & h2 {
+        text-align: right;
+
+        @include desktop-max {
+            max-width: 50%;
+            margin-left: auto;
+        }
+    }
+}
+
+.wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+// Clase estándar de la industria para ocultar elementos visualmente
+// pero dejarlos accesibles para SEO y Screen Readers
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.visualText {
+
+    white-space: pre-line;
+    display: block;
+
+    // El cursor parpadeante se añade aquí
+    &::after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        vertical-align: middle; // Ajuste fino para tipografías proporcionales
+        background-color: rgba(255, 255, 255, 0.545);
+        margin-left: 2px;
+        animation: blink 0.6s step-end infinite alternate;
+    }
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+// Tu animación de cursor original (INTACTA)
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
