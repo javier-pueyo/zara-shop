@@ -1,0 +1,153 @@
+@import '../../abstracts';
+
+.timeline {
+    margin-top: $container-padding-y--mb;
+    margin-bottom: $container-padding-y--mb;
+    position: relative;
+    @include base-flex(flex, center, center);
+    flex-direction: column;
+
+    &__title {
+        margin-bottom: $spacers-container-l;
+        z-index: 1;
+        @include mobile {
+            text-align: left;
+            width: 100%;
+        }
+    }
+
+    &__wrapper {
+        z-index: 1;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: $spacers-container-xl;
+        height: 100%;
+        background: linear-gradient(0deg, transparent, transparent, transparent, #2b0e4c, transparent, transparent, transparent);
+        background-size: 200% 200%;
+        animation: animate 4s ease infinite;
+
+        @include mobile {
+            width: $spacers-container-l;
+            top: 50%;
+            left: -1rem;
+            transform: translate(0%, -50%);
+        }
+    }
+
+    &__item {
+        @include base-flex(flex, stretch, center);
+
+        @include mobile {
+            margin-bottom: $spacers-container-l;
+        }
+        
+        @include mobile-min {
+            margin-top: $spacers-m;
+            margin-bottom: $spacers-m;
+
+            &:nth-child(2n) {
+                transform: translateX(50%);
+                .timeline {
+                    &__content {
+                        @include base-flex(inline-flex, flex-start, baseline);
+                    }
+                    &__entity::after {
+                        content:'/';
+                        padding: 0 $spacers-l;
+                        color: rgba($color-line, .3);
+                    }
+                }
+            }
+            &:nth-child(2n+1) {
+                transform: translateX(-50%);
+                flex-direction: row-reverse;
+                text-align: right;
+                .timeline {
+                    &__content {
+                        @include base-flex(inline-flex, flex-end, flex-end);
+                    }
+                    &__entity {
+                        order: 1;
+                    }
+                    &__specialty::after {
+                        content:'/';
+                        padding: 0 $spacers-l;
+                        color: rgba($color-line, .3);
+                    }
+                }
+            }
+        }
+    }
+    &__content {
+        gap: $spacers-m 0;
+        flex-wrap: wrap;
+
+        @include mobile {
+            @include base-flex(flex, stretch, stretch);
+        }
+        @include large-max {
+            flex-direction: column;
+        }
+    }
+    &__wrapper-image {
+        display: flex;
+        aspect-ratio: 1;
+        padding: $spacers-m;
+        border-radius: 100%;
+        background: $color-link;
+        @include mobile-min {
+            margin: $spacers-xl;
+            width: #{spToRem(56)}rem;
+            height: #{spToRem(56)}rem;
+        }
+        @include mobile {
+            margin: $spacers-m $spacers-l $spacers-m $spacers-m;
+            width: #{spToRem(48)}rem;
+            height: #{spToRem(48)}rem;
+        }
+    }
+    &__logo {
+        filter: none;
+        padding: 0.2rem;
+    }
+    &__entity {
+        @include large-max {
+            &::after {
+                display: none;
+            }
+        }
+    }
+    &__specialty {
+        @include base-size(20);
+        @include large-max {
+            &::after {
+                display: none;
+            }
+        }
+    }
+    &__date {
+        @include base-typo(16, 300, 0);
+        width: 100%;
+        color: $color-lightGrey;
+    }
+
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0 35%;
+    }
+    50% {
+        background-position: 0 65%;
+    }
+    100% {
+        background-position: 0 35%;
+    }
+}

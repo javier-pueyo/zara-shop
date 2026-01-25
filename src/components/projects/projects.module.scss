@@ -1,0 +1,97 @@
+@import '../../abstracts';
+
+.projects {
+
+    $this: &;
+
+    @include desktop {
+        margin-bottom: $container-padding-y;
+    }
+
+    @include desktop-max {
+        margin-bottom: $container-padding-y--mb;
+    }
+
+    &__item {
+        margin-bottom: 12vh;
+
+        & #{$this}__title {
+            line-height: 1.1;
+            margin-left: -7vw;
+
+            @include desktop {
+                margin-bottom: $spacers-container-l;
+            }
+
+            @include desktop-max {
+                margin-top: $spacers-m;
+                margin-bottom: $spacers-xl;
+            }
+        }
+
+        & #{$this}__excerpt {
+            @include desktop {
+                margin-bottom: $spacers-container-l;
+            }
+
+            @include desktop-max {
+                padding-right: 7vw;
+                margin-bottom: $spacers-xxl;
+            }
+        }
+
+        & #{$this}__skills {
+            @include desktop {
+                margin-bottom: $spacers-container-l;
+            }
+
+            @include desktop-max {
+                width: calc(90vw - #{$spacers * 8}rem);
+                overflow-x: auto;
+                padding-top: $spacers-l;
+                margin-top: -$spacers-l;
+                padding-bottom: $spacers-xxl;
+                margin-bottom: $spacers-l;
+            }
+
+            & span {
+                padding: $spacers-m $spacers-l;
+                margin-right: $spacers-xl;
+                border: 1px solid white;
+                border-radius: $spacers-s;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    & #{$this}__body {
+        @include desktop-max {
+            padding-right: 0;
+            padding-left: 7vw;
+        }
+    }
+
+    &__item:nth-child(2n + 1) {
+        flex-direction: row-reverse;
+
+        & #{$this}__body {
+            @include desktop {
+                padding-right: 7vw;
+                padding-left: 7vw;
+            }
+        }
+    }
+
+    &__item:nth-child(2n + 2) {
+
+        & #{$this}__body {
+            @include desktop {
+                padding-left: 14vw;
+            }
+        }
+    }
+
+    &__ctaProject {
+        margin-right: $spacers-container-l;
+    }
+}

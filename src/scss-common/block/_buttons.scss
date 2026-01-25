@@ -1,0 +1,50 @@
+button {
+    
+    margin: 0;
+    background: transparent;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    appearance: none;
+    border: 1px solid transparent;
+}
+
+.btn {
+    @extend .base-button;
+    @extend .link-alt;
+    &--primary {
+        position: relative;
+        @include base-size(20);
+        @include base-flex(inline-flex,strech,strech, column);
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            height: 3px;
+            width: 30px;
+            background: $color-primary;
+            position: absolute;
+            left: -30px;
+            bottom: -1px;
+            z-index: 1;
+            transform: translate3d(0,0,0);
+            transition: left .85s ease-in-out;
+            pointer-events: none;
+            
+        }
+        &:hover::before {
+            left: calc(100% + 35px);
+        }
+
+        &::after {
+            content: '';
+            width: 100%;
+            display: block;
+            margin-top: $spacers-l;
+            height: 1px;
+            background: $color-white;
+        }
+    }
+}
+

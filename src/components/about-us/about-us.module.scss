@@ -1,0 +1,47 @@
+@import '../../abstracts';
+
+.about-us {
+    @include desktop {
+        margin-bottom: $container-padding-y;
+    }
+
+    @include desktop-max {
+        margin-bottom: $container-padding-y--mb;
+    }
+
+    & img {
+        position: relative;
+        margin-top: -12vh;
+
+        @include desktop {
+            max-width: 550px;
+            margin-left: 5px;
+        }
+    }
+
+    &__text {
+        @include base-flex(flex, center, flex-end);
+    }
+
+    & p {
+        @include desktop {
+            @include base-size(28);
+            padding-left: 7vw;
+        }
+
+        @include desktop-max {
+            @include base-size(24);
+            margin-top: $spacers-l;
+            padding-left: 0;
+        }
+    }
+
+    &__img img {
+        filter: grayscale(100%) contrast(130%) opacity(0.6);
+        transition: filter .5s ease-in-out;
+
+        &:hover {
+            filter: grayscale(0%) contrast(100%) opacity(1);
+        }
+    }
+}

@@ -1,0 +1,144 @@
+// =============================================================================
+// _typo.scss : Default classes for Project
+// MIT License
+// =============================================================================
+
+// =============================================================================
+// _typo.scss settings
+// =============================================================================
+
+
+@font-face {
+  font-family: Okta Neue;
+  font-style: normal;
+  font-weight: 700;
+  src: local('Okta Neue Bold');
+  src: url('../../../public/assets/fonts/OktaNeue-Bold.woff2') format('woff2'),
+       url('../../../public/assets/fonts/OktaNeue-Bold.ttf')  format('truetype'),
+       url('../../../public/assets/fonts/OktaNeue-Bold.woff') format('woff');
+ }
+ @font-face {
+  font-family: Okta Neue;
+  font-style: normal;
+  font-weight: 400;
+  src: local('Okta Neue Normal');
+  src: url('../../../public/assets/fonts/OktaNeue-Normal.woff2') format('woff2'),
+       url('../../../public/assets/fonts/OktaNeue-Normal.ttf')  format('truetype'),
+       url('../../../public/assets/fonts/OktaNeue-Normal.woff') format('woff');
+ }
+ 
+
+/* Typography */
+
+// Weights
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  font-family: Okta Neue,Helvetica,sans-serif;
+  color: $color-white;
+  @include base-typo(16, $font-weight-regular, 0);
+  line-height: $line-height-base;
+  background-color: $color-primary;
+  @include scrollbars;
+}
+
+p {
+  @include desktop {
+    @include base-size(24);
+  }
+  @include desktop-max {
+    @include base-size(18);
+  }
+  &::selection {
+    background: $color-link;
+    color: $color-primary;
+  }
+
+  &::-moz-selection {
+    background: $color-link;
+    color: $color-primary;
+  }
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+
+  &::selection {
+    background: $color-link;
+    color: $color-primary;
+  }
+  
+  &::-moz-selection {
+    background: $color-link;
+    color: $color-primary;
+  }
+}
+
+.base-h1, h1 {
+  @include base-typo(48, $font-weight-bold, 100);
+  margin: 0;
+  @include desktop {
+    font-size: 10vw;
+    line-height: 1;
+  }
+  @include desktop-max {
+    font-size: 16vw;
+    line-height: 1.2;
+    margin-top: -$spacers-l;
+  }
+  @include tablet {
+    font-size: 14vw !important;
+    line-height: 1.1;
+  }
+
+}
+.base-h2, h2 {
+  @include base-typo(32, $font-weight-bold, 100);
+  line-height: 1;
+  margin-bottom: $spacers-l;
+  @include desktop {
+    font-size: 7vw;
+  }
+  @include desktop-max {
+    font-size: 13vw;
+    line-height: 1.2;
+  }
+  @include tablet {
+    font-size: 9vw !important;
+    line-height: 1.2;
+    margin-top: -$spacers-l !important;
+  }
+}
+.base-h3 {
+  @include base-typo(20, $font-weight-regular, 0);
+}
+.base-body1 {
+  @include base-typo(14, $font-weight-regular, 0);
+}
+.base-button, button {
+  @include base-typo(16, $font-weight-regular, 200);
+}
+
+a {
+  text-decoration: none;
+  color: $color-link;
+}
+a:hover {
+  color: rgba( $color-link, .6 );
+}
+
+.link-alt {
+  color: $color-white;
+}
+.link-alt:hover {
+  color: rgba( $color-white, .6 );
+}

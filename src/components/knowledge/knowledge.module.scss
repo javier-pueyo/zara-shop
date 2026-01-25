@@ -1,0 +1,46 @@
+@import '../../scss-common/block/_containers';
+@import '../../abstracts';
+
+.knowledge {
+    margin-top: $container-padding-y--mb;
+    margin-bottom: $container-padding-y--mb;
+
+    &__title {
+        margin-bottom: $spacers-container-l;
+        text-align: center;
+    }
+
+    &__list {
+        @extend .row;
+    }
+
+    &__wrapper {
+        @extend .col-third;
+        text-align: center;
+    }
+
+    &__letter {
+        @include base-flex(flex, center, center);
+        @include base-size(70);
+        background: linear-gradient(0deg, transparent, #2b0e4c);
+        color: rgba($color-lightGrey, .15);
+        width: 100%;
+        aspect-ratio: 2/1;
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        margin-bottom: -1.5rem;
+    }
+
+    &__name {
+        letter-spacing: 2px;
+        @include base-size(32);
+
+    }
+
+    &__sub {
+
+        &-item {
+            margin-bottom: 1rem;
+
+        }
+    }
+}

@@ -1,0 +1,103 @@
+// =============================================================================
+// _grid.scss : Grids Views
+// MIT License
+// =============================================================================
+
+// =============================================================================
+// _grid.scss settings
+// =============================================================================
+@mixin base-grid($height,
+  $columns,
+  $columns-fractions,
+  $rows-fractions,
+  $grid-area,
+  $grid-gap) {
+  display: grid;
+  //height: $height;
+  //grid-template-columns: repeat($columns, $columns-fractions);
+  //grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
+  grid-template-areas: $grid-area;
+  gap: $grid-gap;
+}
+
+.area-grid {
+  @include desktop {
+    @include base-grid(auto,
+      4,
+      1,
+      auto,
+      "header main main nav" "header main main nav" "header footer footer nav",
+      0.5rem);
+  }
+
+  @include desktop-max {
+    @include base-grid(auto,
+      2,
+      1,
+      auto,
+      "header nav" "main main" "footer footer",
+      0.5rem);
+  }
+}
+
+.layout {
+  @extend .area-grid;
+}
+
+.layout-nav {
+  grid-area: nav;
+
+  @include desktop-max {
+    & .container {
+      padding: $spacers-l;
+    }
+  }
+
+  @include desktop {
+    & .container {
+      position: sticky;
+      top: 0;
+      height: 55vh;
+      min-width: 132px;
+    }
+  }
+}
+
+.layout-main {
+  grid-area: main;
+  padding-left: $spacers-s;
+  padding-right: $spacers-s;
+  margin-bottom: $spacers-container-xl;
+
+  @include desktop-max {
+    padding-left: $container-padding-x;
+    padding-right: $container-padding-x;
+  }
+}
+
+.layout-header {
+  grid-area: header;
+
+  @include desktop {
+    & .container {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      @include base-flex(flex, space-between, center, column);
+    }
+  }
+}
+
+.layout-footer {
+  grid-area: footer;
+
+  @include desktop {
+    padding: $spacers-container-l 0 $spacers-xxl $container-padding-x;
+    @include base-flex(flex, space-between, center);
+  }
+
+  @include desktop-max {
+    padding: 0 $container-padding-x $spacers-container-xl $container-padding-x;
+  }
+
+}

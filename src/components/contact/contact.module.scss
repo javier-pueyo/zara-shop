@@ -1,0 +1,107 @@
+@import '../../abstracts';
+
+.contact {
+    @include desktop {
+        margin-left: 7vw;
+        margin-right: 7vw;
+    }
+    &__intro {
+        @include base-flex(flex, space-between, baseline);
+        margin-bottom: $spacers-container-l;
+        & h2 {
+            line-height: 1.2;
+        }
+        & p {
+            text-align: right;
+            margin-bottom: 1rem;
+            @include desktop-max {
+                margin-left: -$spacers-container-l;
+            }
+        }
+    }
+    & form {
+        @include desktop {
+            margin-left: 7vw;
+            margin-right: 7vw;
+        }
+
+
+    }
+    & label {
+        display: block;
+        margin-bottom: $spacers-l;
+    }
+    & input:not(.checkbox__input), & textarea {
+        @include desktop {
+            margin-bottom: $spacers-container-l;
+        }
+        @include desktop-max {
+            margin-bottom: $spacers-xl;
+        }
+        width: 100%;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        border: 1px solid $color-white;
+        border-radius: $spacers-s;
+        padding: $spacers-m $spacers-l $spacers-m $spacers-l;
+        line-height: 1.5;
+    }
+    & textarea {
+        height: 20vh;
+    }
+    .checkbox {
+        @include desktop-max {
+            margin-top: $spacers-xl;
+            margin-bottom: $spacers-xl;
+        }
+        @include base-flex(flex, flex-start, flex-start);
+        &__input {
+            @include base-flex(inline-flex, center, center);
+            appearance: none;
+            background-color: $color-primary;
+            margin: 0;
+            margin-right: $spacers-l;
+            border: 1px solid $color-white;
+            border-radius: 0.15em;
+            transform: translateY(-0.075em);
+            place-content: center;
+            height: 1.5rem;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+            
+        &__input::before {
+            content: '\f00c';
+            font-family: "Font Awesome 6 Free";
+            color: white;
+            line-height: 0.65rem;
+            font-weight: 900;
+            font-size: 14px;
+            display: block;
+            width: 0.65rem;
+            height: 0.65rem;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--form-control-color);
+        }
+            
+        &__input.checked::before {
+            transform: scale(1);
+        }
+        &__label {
+            display: inline-block;
+            max-width: 350px;
+            line-height: 1.5;
+            margin-bottom: 0;
+            @include desktop {
+                margin-top: -0.75rem;
+            }
+        }
+    }
+    & button {
+        @include base-size(28);
+        margin-top: -1rem;
+    }
+}
