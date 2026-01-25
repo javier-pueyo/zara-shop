@@ -1,3 +1,6 @@
+@use 'functions' as *;
+@use 'variables' as *;
+
 @mixin base-typo($size, $weight, $spacing) {
   font-weight: $weight;
   font-size: #{spToRem($size)}rem;

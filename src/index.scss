@@ -2,18 +2,19 @@
 //utilities
 //utilities
 //utilities
-@import "scss-common/utilities/functions";
-@import "scss-common/utilities/variables";
-@import "scss-common/utilities/mixins";
-@import "scss-common/utilities/responsive";
+//utilities
+@use "scss-common/utilities/functions";
+@use "scss-common/utilities/variables";
+@use "scss-common/utilities/mixins";
+@use "scss-common/utilities/responsive";
 
 //base
-@import "scss-common/base/reset";
-@import "scss-common/base/normalize";
-@import "scss-common/base/typo";
+@use "scss-common/base/reset";
+@use "scss-common/base/normalize";
+@use "scss-common/base/typo";
 
 //block - layouts
-@import "scss-common/block/images";
-@import "scss-common/block/containers";
-@import "scss-common/block/grid";
-@import "scss-common/block/buttons";
+@use "scss-common/block/images";
+@use "scss-common/block/containers";
+@use "scss-common/block/grid";
+@use "scss-common/block/buttons";

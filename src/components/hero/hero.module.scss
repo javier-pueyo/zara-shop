@@ -1,4 +1,4 @@
-@import '../../abstracts';
+@use '../../abstracts' as *;
 
 .hero {
     @include base-flex(flex, space-between, strech, column);

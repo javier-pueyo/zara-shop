@@ -1,6 +1,6 @@
-@import '../utilities/variables';
-@import '../utilities/mixins';
-@import '../utilities/responsive';
+@use '../utilities/variables' as *;
+@use '../utilities/mixins' as *;
+@use '../utilities/responsive' as *;
 
 .m-l-auto {
     margin-left: auto !important;

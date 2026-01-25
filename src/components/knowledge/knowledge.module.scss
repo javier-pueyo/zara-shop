@@ -1,5 +1,5 @@
-@import '../../scss-common/block/_containers';
-@import '../../abstracts';
+@use '../../scss-common/block/containers';
+@use '../../abstracts' as *;
 
 .knowledge {
     margin-top: $container-padding-y--mb;

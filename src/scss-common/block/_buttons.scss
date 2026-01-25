@@ -1,5 +1,9 @@
+@use '../utilities/variables' as *;
+@use '../utilities/mixins' as *;
+@use '../base/typo';
+
 button {
-    
+
     margin: 0;
     background: transparent;
     text-decoration: none;
@@ -13,10 +17,11 @@ button {
 .btn {
     @extend .base-button;
     @extend .link-alt;
+
     &--primary {
         position: relative;
         @include base-size(20);
-        @include base-flex(inline-flex,strech,strech, column);
+        @include base-flex(inline-flex, strech, strech, column);
         overflow: hidden;
 
         &::before {
@@ -28,11 +33,12 @@ button {
             left: -30px;
             bottom: -1px;
             z-index: 1;
-            transform: translate3d(0,0,0);
+            transform: translate3d(0, 0, 0);
             transition: left .85s ease-in-out;
             pointer-events: none;
-            
+
         }
+
         &:hover::before {
             left: calc(100% + 35px);
         }
@@ -47,4 +53,3 @@ button {
         }
     }
 }
-
