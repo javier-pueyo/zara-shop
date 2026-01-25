@@ -1,6 +1,5 @@
-
 import styles from './hero.module.scss'; // Tus estilos de estructura layout
-import Typewriter from './Typewriter';
+import Typewriter from '../typewriter/typewriter';
 
 const Hero = ({ hero }) => {
   const { title, name } = hero;

@@ -1,0 +1,17 @@
+services:
+  portfolio-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio-app
+    restart: always
+    environment:
+      - NODE_ENV=production
+    networks:
+      gateway_net:
+        aliases:
+          - portfolio
+
+networks:
+  gateway_net:
+    external: true
