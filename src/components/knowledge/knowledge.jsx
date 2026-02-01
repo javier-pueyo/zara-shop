@@ -9,9 +9,10 @@ const Knowledge = ({ knowledges }) => {
         {knowledges.map((item, index) => {
           return (
             <div className={styles['knowledge__wrapper']} key={`${JSON.stringify(item)}-${index}`}> {/* Extends .col-third */}
-              <div className={styles['knowledge__letter']}>
-                <h3 className={styles['knowledge__name']}>{item.name}</h3>
-              </div>
+              <span className={styles['knowledge__letter']}>
+                {item.name.charAt(0)}
+              </span>
+              <h3 className={styles['knowledge__name']}>{item.name}</h3>
               <ul className={styles['knowledge__sub']}>
                 {item.subKnowledges.map((subItem, index) => {
                   return (

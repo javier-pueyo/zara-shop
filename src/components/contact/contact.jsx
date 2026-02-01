@@ -14,7 +14,10 @@ const Contact = ({ contact }) => {
     const gaEventTracker = useAnalyticsEventTracker('Contact');
     const { title, subtitle } = contact;
     const [contactForm, setContactForm] = useState(INITIAL_STATE);
+    const [submited, setSubmited] = useState(false);
     const [errors, setErrors] = useState({});
+
+    const [showLegal, setShowLegal] = useState(false);
 
     const changeInput = (ev) => {
         const { name, value, checked, type } = ev.target;
@@ -50,7 +53,7 @@ const Contact = ({ contact }) => {
         }
 
         try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('/portfolio/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +62,7 @@ const Contact = ({ contact }) => {
             });
 
             if (response.ok) {
-                console.log('Email sent successfully');
+                setSubmited(true);
                 gaEventTracker(`Email sended`);
                 setContactForm(INITIAL_STATE);
                 setErrors({}); // Clear errors
@@ -139,12 +142,14 @@ const Contact = ({ contact }) => {
                             required
                             aria-invalid={!!errors.termsx}
                         />
-                        <label className={`${styles['checkbox__label']} ${errors.termsx ? styles.errorMessage : ''}`} htmlFor="termsx">I have read and accepted <a href="#a" target="_blank" rel="noopener noreferrer">the privacy policies</a> of the website.</label>
+                        <label className={`${styles['checkbox__label']} ${errors.termsx ? styles.errorMessage : ''}`} htmlFor="termsx">I have read and accepted<button type="button" className={styles['legal-action']} onClick={() => setShowLegal(!showLegal)}>the privacy policies</button> of the website.</label>
                     </div>
+                    {showLegal && <div className={`${styles['legal-notice']} col`}><i>Basic information on Data Protection: The data you provide will be used to manage your request. This site uses Google Analytics for statistical purposes. We do not share your data with other third parties. You can exercise your rights by contacting us.</i></div>}
                     <div className="col m-l-auto">
-                        <button className="btn btn--primary" type="submit">Send message !</button>
+                        <button className={`${styles['submit']} btn btn--primary`} type="submit" disabled={submited}>{submited ? 'Message sent' : 'Send message !'}</button>
                     </div>
                 </div>
+
             </form>
         </section>
     );

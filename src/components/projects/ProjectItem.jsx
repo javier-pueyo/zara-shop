@@ -26,8 +26,8 @@ const ProjectItem = ({ item }) => {
                             })
                         }
                     </div>
-                    <a className={`btn btn--primary ${styles['projects__ctaProject']}`} onClick={() => gaEventTracker(`${item.title}: Project`)} href={item.urlProject} target="_blank" rel="noreferrer">See project</a>
-                    <a className="btn btn--primary" onClick={() => gaEventTracker(`${item.title}: Repo`)} href={item.urlRepo} target="_blank" rel="noreferrer">See repository</a>
+                    {item.urlProject && <a className={`btn btn--primary ${styles['projects__ctaProject']}`} onClick={() => gaEventTracker(`${item.title}: Project`)} href={item.urlProject} target="_blank" rel="noreferrer">See project</a>}
+                    {item.urlRepo && <a className="btn btn--primary" onClick={() => gaEventTracker(`${item.title}: Repo`)} href={item.urlRepo} target="_blank" rel="noreferrer">See repository</a>}
                 </div>
             </div>
         </article>

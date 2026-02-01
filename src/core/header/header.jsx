@@ -6,7 +6,7 @@ import cn from "classnames";
 const Header = ({ info, className }) => {
   const gaEventTracker = useAnalyticsEventTracker("Header");
 
-  const { logoUrl, email, linkedin, gitlab } = info;
+  const { logoUrl, email, linkedin, github } = info;
   return (
     <header className={cn(styles.header, className)}>
       <div className={`container ${styles.container}`}>
@@ -36,13 +36,13 @@ const Header = ({ info, className }) => {
             <span className="fa-solid fa-at"></span>
           </a>
           <a
-            onClick={() => gaEventTracker(`Gitlab`)}
+            onClick={() => gaEventTracker(`Github`)}
             className={styles['social-media__link']}
-            href={gitlab}
+            href={github}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="fa-brands fa-gitlab"></span>
+            <span className="fa-brands fa-github"></span>
           </a>
         </section>
       </div>

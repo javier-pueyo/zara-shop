@@ -125,9 +125,27 @@
         margin-bottom: $spacers-l;
     }
 
-    button {
+    .legal-action {
+        color: #fffd37;
+    }
+
+    .legal-notice {
+        max-width: 800px;
+        font-size: 0.8rem;
+
+        @include desktop {
+            position: absolute;
+            margin-top: 4rem;
+        }
+    }
+
+    .submit {
         @include base-size(28);
         margin-top: -1rem;
+
+        @include desktop-max {
+            margin-top: $spacers-xxl;
+        }
     }
 
     .error {
