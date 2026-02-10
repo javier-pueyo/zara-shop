@@ -1,27 +1,40 @@
 {
-  "name": "new-project",
+  "name": "zara-shop",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run"
   },
   "dependencies": {
-    "classnames": "^2.5.1",
-    "emailjs-com": "^3.2.0",
-    "next": "16.1.4",
-    "nodemailer": "^7.0.12",
+    "@headlessui/react": "^2.2.9",
+    "@tanstack/react-query": "^5.90.20",
+    "@tanstack/react-query-devtools": "^5.91.3",
+    "axios": "^1.13.5",
+    "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "react-ga": "^3.3.1",
-    "react-ga4": "^2.1.0",
-    "react-gtm-module": "^2.0.11",
-    "sass": "^1.97.3"
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.1.4",
     "eslint": "^9",
-    "eslint-config-next": "16.1.4"
+    "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.0.18"
   }
 }
