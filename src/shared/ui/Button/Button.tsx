@@ -21,7 +21,7 @@ const ButtonRoot = ({ children, variant = 'primary', className = '', ...props }:
     );
 
     const variants = {
-        primary: 'p-5 text-xs uppercase justify-center tracking-[0.08em] bg-brand-primary text-content-inverse disabled:',
+        primary: 'p-5 text-xs uppercase justify-center tracking-[0.08em] bg-brand-primary text-content-inverse disabled:bg-gray-100 disabled:text-gray-350',
         secondary: 'p-5 text-xs uppercase justify-center tracking-[0.08em] bg-surface text-content-primary border border-brand-primary',
         plain: 'text-content-primary',
     };

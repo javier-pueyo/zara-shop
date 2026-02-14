@@ -4,6 +4,7 @@ export interface Product {
     name: string;
     basePrice: number;
     imageUrl: string;
+    hash?: string;
 }
 
 export interface ProductDetail {
@@ -26,7 +27,6 @@ export interface ProductDetail {
     colorOptions: ColorOption[];
     storageOptions: StorageOption[];
     similarProducts: Product[];
-    imageUrl: string;
 }
 
 export interface ColorOption {
@@ -47,4 +47,10 @@ export interface CartItem {
     imageUrl: string;
     color: string;
     storage: string;
+}
+
+export interface ProductSearchParams {
+    search?: string;
+    limit?: number;
+    offset?: number;
 }

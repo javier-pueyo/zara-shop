@@ -1,24 +1,24 @@
 @import 'tailwindcss';
 
 @theme {
-  /* --- COLORES BASE (Primitivos) --- */
   --color-white: #FFFFFF;
   --color-black: #000000;
 
-  /* Escala de Grises (Ajustada para realismo) */
+  --color-gray-100: #F3F2F2;
   --color-gray-300: #CCCCCC;
+  --color-gray-350: #C2BFBC;
   --color-gray-400: #AAAAAA;
   --color-gray-600: #79736D;
 
   --color-brown-900: #1B1A18;
   --color-red-500: #DF0000;
 
-  /* --- COLORES DE MARCA (Identidad) --- */
+  /* --- COLORES DE MARCA --- */
   --color-brand-primary: var(--color-black);
   --color-brand-accent: var(--color-brown-900);
   --color-surface: var(--color-white);
 
-  /* --- COLORES DE CONTENIDO (Jerarquía de lectura) --- */
+  /* --- COLORES DE TEXTOS --- */
   --color-content-primary: var(--color-black);
   --color-content-secondary: var(--color-gray-600);
   --color-content-tertiary: var(--color-gray-400);
@@ -34,13 +34,9 @@
 
   /* --- ASPECT RATIOS --- */
   --aspect-image-horizontal: 1.2;
-  /* Proporción 6:5 */
   --aspect-image-vertical: 0.8;
-  /* Proporción 4:5 */
 
-  /* --- ESCALA DE TEXTO (Tamaño + Line-Height 100%) --- */
-  /* En CSS, line-height: 100% es equivalente a 1 */
-
+  /* --- ESCALA DE TEXTO --- */
   --text-2xs: 10px;
   --text-2xs--line-height: 1;
 
@@ -65,7 +61,7 @@
   /* --- BREAKPOINTS --- */
   --breakpoint-mobile: 393px;
   --breakpoint-tablet: 834px;
-  --breakpoint-desktop: 1980px;
+  --breakpoint-desktop: 1440px;
 }
 
 /* --- CONFIGURACIÓN BASE --- */
@@ -76,7 +72,6 @@
     line-height: 1;
   }
 
-  /* Para que el producto con fondo blanco se integre bien */
   img {
     @apply max-w-full h-auto;
   }

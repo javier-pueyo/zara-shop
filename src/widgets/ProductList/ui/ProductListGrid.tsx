@@ -15,7 +15,7 @@ export const ProductListGrid = ({ products, className }: ProductListGridProps) =
         <div className={cn("grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-5 border-t border-l border-ui-border-primary mt-12", className)}>
             {products.map((product) => (
                 <ProductCard
-                    key={product.id}
+                    key={product.hash}
                     product={product}
                     className="border-r border-b border-ui-border-primary"
                 />

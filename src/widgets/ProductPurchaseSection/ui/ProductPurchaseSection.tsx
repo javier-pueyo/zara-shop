@@ -18,18 +18,11 @@ export const ProductPurchaseSection = ({ product, className }: ProductPurchaseSe
     const [selectedColorName, setSelectedColorName] = useState<string>('');
     const [selectedStorageCapacity, setSelectedStorageCapacity] = useState<string>('');
 
-    useEffect(() => {
-        if (product.colorOptions.length > 0 && !selectedColorName) {
-            setSelectedColorName(product.colorOptions[0].name);
-        }
-        if (product.storageOptions.length > 0 && !selectedStorageCapacity) {
-            setSelectedStorageCapacity(product.storageOptions[0].capacity);
-        }
-    }, [product, selectedColorName, selectedStorageCapacity]);
+
 
     const selectedColorOption = product.colorOptions.find(opt => opt.name === selectedColorName);
     const selectedColorImage = selectedColorOption?.imageUrl;
-    const currentImage = selectedColorImage || product.imageUrl;
+    const currentImage = selectedColorImage ?? product.colorOptions[0]?.imageUrl;
 
     const { addToCart } = useAddToCart(product);
 

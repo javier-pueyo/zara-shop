@@ -1,8 +1,8 @@
 import { apiClient } from '@/shared/api/client';
-import { Product, ProductDetail } from '../model/types';
+import { Product, ProductDetail, ProductSearchParams } from '../model/types';
 
-export const getProducts = async (): Promise<Product[]> => {
-    const response = await apiClient.get<Product[]>('/products');
+export const getProducts = async (params?: ProductSearchParams): Promise<Product[]> => {
+    const response = await apiClient.get<Product[]>('/products', { params });
     return response.data;
 };
 

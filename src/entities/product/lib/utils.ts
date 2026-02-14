@@ -2,11 +2,9 @@ interface ProductWithId {
     id: string;
 }
 
-export const filterUniqueProducts = <T extends ProductWithId>(products: T[]): T[] => {
-    const seen = new Set<string>();
-    return products.filter(product => {
-        if (seen.has(product.id)) return false;
-        seen.add(product.id);
-        return true;
-    });
+export const assignHashToProducts = <T extends ProductWithId>(products: T[]): (T & { hash: string })[] => {
+    return products.map(product => ({
+        ...product,
+        hash: `${product.id}-${crypto.randomUUID()}`
+    }));
 };

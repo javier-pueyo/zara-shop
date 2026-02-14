@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { getProducts, getProductDetail } from './client';
-import { Product, ProductDetail } from '../model/types';
+import { Product, ProductDetail, ProductSearchParams } from '../model/types';
 import { ApiError } from '@/shared/api/client';
-import { filterUniqueProducts } from '../lib/utils';
+import { assignHashToProducts } from '../lib/utils';
 
-export const useProducts = () => {
+export const useProducts = (params?: ProductSearchParams) => {
     return useQuery<Product[], ApiError>({
-        queryKey: ['products'],
+        queryKey: ['products', params],
         queryFn: async () => {
-            const products = await getProducts();
-            return filterUniqueProducts(products);
+            const products = await getProducts(params);
+            return assignHashToProducts(products);
         },
     });
 };
@@ -19,7 +19,7 @@ export const useProductDetail = (id: string) => {
         queryKey: ['product', id],
         queryFn: async () => {
             const product = await getProductDetail(id);
-            product.similarProducts = filterUniqueProducts(product.similarProducts);
+            product.similarProducts = assignHashToProducts(product.similarProducts);
             return product;
         },
         enabled: !!id,

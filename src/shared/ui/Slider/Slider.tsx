@@ -14,7 +14,7 @@ interface SliderItemProps {
 const SliderItem = ({ children, className }: SliderItemProps) => {
     return (
         <div className={cn(
-            "min-w-[280px] tablet:min-w-[340px] desktop:min-w-[400px] flex-shrink-0 snap-start border-r border-b border-ui-border-primary p-4",
+            "min-w-[80vw] tablet:min-w-[40vw] desktop:min-w-[18vw] flex-shrink-0 snap-start border-r border-b border-ui-border-primary p-4",
             className
         )}>
             {children}

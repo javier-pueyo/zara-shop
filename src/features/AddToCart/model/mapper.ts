@@ -9,7 +9,7 @@ export const mapProductToCartItem = (
     if (!color || !storage) return null;
 
     const selectedColorOption = product.colorOptions.find(opt => opt.name === color);
-    const imageUrl = selectedColorOption?.imageUrl || product.imageUrl;
+    const imageUrl = selectedColorOption?.imageUrl ?? product.colorOptions[0]?.imageUrl;
 
     return {
         id: product.id,
