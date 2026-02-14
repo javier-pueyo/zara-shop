@@ -29,7 +29,10 @@ export const SearchBar = ({ onSearch, placeholder = 'Search for a smartphone...'
                     className="w-full"
                 />
                 {typeof resultsCount === 'number' && (
-                    <p className="absolute bottom-0 left-0 text-xs uppercase text-content-primary">
+                    <p
+                        aria-live="polite"
+                        className="absolute bottom-0 left-0 text-xs uppercase text-content-primary"
+                    >
                         {resultsCount} Results
                     </p>
                 )}

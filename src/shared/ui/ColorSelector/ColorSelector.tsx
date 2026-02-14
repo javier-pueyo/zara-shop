@@ -39,6 +39,7 @@ export const ColorSelector = ({ colors, value, onSelect, label }: ColorSelectorP
                         <Radio
                             key={color.value}
                             value={color.value}
+                            aria-label={color.label}
                             className={({ checked }) =>
                                 cn(
                                     "cursor-pointer w-8 h-8 border-1 p-0.5 transition-colors",
