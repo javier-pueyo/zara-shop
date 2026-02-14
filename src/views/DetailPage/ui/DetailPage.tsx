@@ -27,7 +27,7 @@ export const DetailPage = ({ id }: DetailPageProps) => {
             </Header>
             <Main>
                 <Main.TopBar>
-                    <Button className="py-3" variant="plain" onClick={() => router.back()}>
+                    <Button className="py-3 uppercase text-xs" variant="plain" onClick={() => router.back()}>
                         <Button.Icon name="arrow-left" />
                         Back
                     </Button>
