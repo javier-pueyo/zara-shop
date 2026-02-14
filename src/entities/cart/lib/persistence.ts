@@ -16,7 +16,7 @@ export const loadCart = (): CartItem[] => {
         const items = JSON.parse(saved);
         return items.map((item: any) => ({
             ...item,
-            hash: item.hash || item.cartItemId || crypto.randomUUID()
+            hash: item.hash || crypto.randomUUID()
         }));
     }
     return [];

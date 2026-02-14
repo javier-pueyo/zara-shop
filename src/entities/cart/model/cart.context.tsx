@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { CartItem } from './types';
 import { loadCart, saveCart } from '../lib/persistence';
+import { addItemToCart, calculateCartCount, calculateCartTotal, removeItemFromCart } from './operations';
 
 interface CartContextType {
     items: CartItem[];
@@ -25,22 +26,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const addItem = (item: Omit<CartItem, 'hash'>) => {
-        const newItem = { ...item, hash: crypto.randomUUID() };
-        const newItems = [...items, newItem];
+        const newItems = addItemToCart(items, item);
         setItems(newItems);
         saveCart(newItems);
     };
 
     const removeItem = (hash: string) => {
-        const newItems = items.filter(
-            item => item.hash !== hash
-        );
+        const newItems = removeItemFromCart(items, hash);
         setItems(newItems);
         saveCart(newItems);
     };
 
-    const total = items.reduce((sum, item) => sum + item.price, 0);
-    const count = items.length;
+    const total = calculateCartTotal(items);
+    const count = calculateCartCount(items);
 
     return (
         <CartContext.Provider value={{ items, addItem, removeItem, total, count, isHydrated }}>
