@@ -23,17 +23,17 @@ export const DetailPage = ({ id }: DetailPageProps) => {
     return (
         <div className="min-h-screen bg-surface overflow-hidden">
             <Header>
-                <Header.Cart count={0} />
+                <Header.Cart />
             </Header>
             <Main>
                 <Main.TopBar>
-                    <Button className="py-6" variant="plain" onClick={() => router.back()}>
+                    <Button className="py-3" variant="plain" onClick={() => router.back()}>
                         <Button.Icon name="arrow-left" />
                         Back
                     </Button>
                 </Main.TopBar>
                 <Main.Section>
-                    <Container max="lg" className="space-y-40">
+                    <Container max="lg" className="space-y-20 desktop:space-y-40 ">
                         <ProductPurchaseSection product={product} />
                         <ProductSpecs specs={product.specs} />
                         <SimilarItemsSlider products={product.similarProducts} />

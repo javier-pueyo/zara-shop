@@ -6,19 +6,13 @@ import { Main } from '@/shared/ui/Main';
 import { Typography } from '@/shared/ui/Typography';
 import { CartList } from '@/widgets/CartList/ui/CartList';
 import { CartFooter } from '@/widgets/CartFooter/ui/CartFooter';
-import { CartItem } from '@/entities/product/model/types';
+import { useCart } from '@/entities/cart';
 
-interface CartPageProps {
-    items: CartItem[];
-    total: number;
-}
-
-export const CartPage = ({ items, total }: CartPageProps) => {
-    const handleRemove = (id: string) => {
-        console.log('Remove item:', id);
-    };
+export const CartPage = () => {
+    const { items, isHydrated } = useCart();
 
     const handlePay = () => {
+        // TODO: Implement pay logic
         console.log('Pay button clicked');
     };
 
@@ -30,16 +24,15 @@ export const CartPage = ({ items, total }: CartPageProps) => {
                 <Main.Section className="pb-[172px]">
                     <Container max="xl">
                         <Typography variant="hero" as="h1" className="mb-12">
-                            Cart ({items.length})
+                            Cart {isHydrated && `(${items.length})`}
                         </Typography>
 
-                        <CartList items={items} onRemove={handleRemove} />
+                        <CartList />
                     </Container>
                 </Main.Section>
                 <Main.Navigation>
                     <Container max="xl">
                         <CartFooter
-                            total={total}
                             onPay={handlePay}
                         />
                     </Container>

@@ -11,7 +11,7 @@ interface SimilarItemsSliderProps {
 
 export const SimilarItemsSlider = ({ products, className }: SimilarItemsSliderProps) => {
     return (
-        <div className={cn("w-full py-20 select-none", className)}>
+        <div className={cn("w-full", className)}>
             <Typography variant="title" as="h2">Similar Items</Typography>
 
             <Slider className="mt-10">

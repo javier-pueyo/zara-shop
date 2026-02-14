@@ -1,39 +1,34 @@
 import { Media } from '@/shared/ui/Media/Media';
-import { CartItem } from '../../model/types';
-import { Button } from '@/shared/ui/Button/Button';
+import { RemoveFromCartButton } from '@/features/RemoveFromCart';
+import { CartItem } from '@/entities/cart';
 
 interface ProductHorizontalCardProps {
     item: CartItem;
-    onRemove?: () => void;
 }
 
 export const ProductHorizontalCard = ({
     item,
-    onRemove
 }: ProductHorizontalCardProps) => {
-    const { name, price, imageUrl, color, storage } = item;
+    const { id, productName, price, imageUrl, color, storage } = item;
     return (
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-2 tablet:grid-cols-[30%_70%] desktop:grid-cols-[60%_40%] gap-10">
             <div>
                 <Media
                     src={imageUrl}
-                    alt={name}
+                    alt={productName}
                     ratio="vertical"
                 />
             </div>
             <div className="py-10 flex flex-col">
-                <h3 className="text-xs uppercase text-content-primary">{name}</h3>
+                <h3 className="text-xs uppercase text-content-primary">{productName}</h3>
                 <p className="text-xs uppercase text-content-primary mt-1">{price} EUR</p>
                 <p className="text-xs uppercase text-content-primary mt-5">
                     {storage} | {color}
                 </p>
-                <Button
-                    variant="plain"
-                    onClick={onRemove}
-                    className="mt-auto text-xs text-content-danger"
-                >
-                    Eliminar
-                </Button>
+                <RemoveFromCartButton
+                    hash={item.hash}
+                    className="mt-auto w-fit"
+                />
             </div>
         </div>
     );

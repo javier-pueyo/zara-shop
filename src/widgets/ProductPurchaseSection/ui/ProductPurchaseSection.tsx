@@ -1,18 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { BadgeSelector } from '@/shared/ui/BadgeSelector/BadgeSelector';
-import { ColorSelector } from '@/shared/ui/ColorSelector/ColorSelector';
-import { Button } from '@/shared/ui/Button/Button';
 import { ProductDetail } from '@/entities/product/model/types';
 import { Media } from '@/shared/ui/Media';
 
+import { ProductConfigurator } from '@/features/ProductConfigurator';
+import { useAddToCart, AddToCartButton } from '@/features/AddToCart';
+
+import { cn } from '@/shared/lib/utils';
+
 interface ProductPurchaseSectionProps {
     product: ProductDetail;
+    className?: string;
 }
 
-export const ProductPurchaseSection = ({ product }: ProductPurchaseSectionProps) => {
+export const ProductPurchaseSection = ({ product, className }: ProductPurchaseSectionProps) => {
     const [selectedColorName, setSelectedColorName] = useState<string>('');
     const [selectedStorageCapacity, setSelectedStorageCapacity] = useState<string>('');
 
@@ -23,31 +25,23 @@ export const ProductPurchaseSection = ({ product }: ProductPurchaseSectionProps)
         if (product.storageOptions.length > 0 && !selectedStorageCapacity) {
             setSelectedStorageCapacity(product.storageOptions[0].capacity);
         }
-    }, [product]);
-
-    const colorOptions = product.colorOptions.map(color => ({
-        hex: color.hexCode,
-        label: color.name,
-        value: color.name
-    }));
-
-    const storageOptions = product.storageOptions.map(opt => ({
-        label: opt.capacity,
-        value: opt.capacity
-    }));
+    }, [product, selectedColorName, selectedStorageCapacity]);
 
     const selectedColorOption = product.colorOptions.find(opt => opt.name === selectedColorName);
     const selectedColorImage = selectedColorOption?.imageUrl;
+    const currentImage = selectedColorImage || product.imageUrl;
+
+    const { addToCart } = useAddToCart(product);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Added to cart:', { product, selectedColorName, selectedStorageCapacity });
+        if (selectedColorName && selectedStorageCapacity) {
+            addToCart(selectedColorName, selectedStorageCapacity);
+        }
     };
 
-    const currentImage = selectedColorImage || product.imageUrl;
-
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 items-center">
+        <div className={cn("grid grid-cols-1 tablet:grid-cols-[40%_60%] gap-12 items-center", className)}>
             {currentImage && (
                 <Media
                     src={currentImage}
@@ -55,38 +49,28 @@ export const ProductPurchaseSection = ({ product }: ProductPurchaseSectionProps)
                     ratio="vertical"
                     fit="contain"
                     priority
-                    className="p-12"
+                    className="w-[70%] tablet:w-full"
                 />
             )}
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-16 lg:max-w-[360px] lg:ml-auto w-full">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-10 desktop:gap-16  tablet:max-w-[360px] tablet:ml-auto w-full">
                 <div>
                     <h1 className="text-xl uppercase">{product.name}</h1>
-                    <p className="text-xl mt-4">{product.basePrice} EUR</p>
+                    <p className="text-lg mt-4">{product.basePrice} EUR</p>
                 </div>
 
-                <BadgeSelector
-                    label="Storage. How much space do you need?"
-                    options={storageOptions}
-                    value={selectedStorageCapacity}
-                    onSelect={setSelectedStorageCapacity}
+                <ProductConfigurator
+                    product={product}
+                    selectedColor={selectedColorName}
+                    selectedStorage={selectedStorageCapacity}
+                    onColorSelect={setSelectedColorName}
+                    onStorageSelect={setSelectedStorageCapacity}
                 />
 
-                <ColorSelector
-                    label="Color. Pick your favourite"
-                    colors={colorOptions}
-                    value={selectedColorName}
-                    onSelect={setSelectedColorName}
-                />
-
-                <Button
-                    type="submit"
-                    variant="primary"
-                    className="w-full"
+                <AddToCartButton
                     disabled={!selectedColorName || !selectedStorageCapacity}
-                >
-                    Añadir
-                </Button>
+                    className="w-full"
+                />
             </form>
         </div>
     );

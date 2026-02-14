@@ -1,19 +1,17 @@
+import { useCart } from '@/entities/cart';
 import { ProductHorizontalCard } from '@/entities/product/ui/ProductHorizontalCard/ProductHorizontalCard';
-import { CartItem } from '@/entities/product/model/types';
 
-interface CartListProps {
-    items: CartItem[];
-    onRemove: (id: string) => void;
-}
+import { cn } from '@/shared/lib/utils';
 
-export const CartList = ({ items, onRemove }: CartListProps) => {
+export const CartList = ({ className }: { className?: string }) => {
+    const { items } = useCart();
+
     return (
-        <div className="grid grid-cols-1 desktop:grid-cols-3 gap-x-12 gap-y-16">
+        <div className={cn("grid grid-cols-1 desktop:grid-cols-3 gap-x-12 gap-y-16", className)}>
             {items.map((item) => (
                 <ProductHorizontalCard
-                    key={`${item.id}-${item.color}-${item.storage}`}
+                    key={item.hash}
                     item={item}
-                    onRemove={() => onRemove(item.id)}
                 />
             ))}
         </div>

@@ -9,7 +9,7 @@ interface MainTopBarProps {
 
 export const MainTopBar = ({ children, className }: MainTopBarProps) => {
     return (
-        <div className={cn('w-full', className)}>
+        <div id="main-topbar" className={cn('w-full', className)}>
             <Container max="xl">
                 {children}
             </Container>

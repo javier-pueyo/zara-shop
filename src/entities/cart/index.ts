@@ -1,2 +1,3 @@
-export { CartBadge } from './ui/CartBadge/CartBadge';
-export { CartSummary } from './ui/CartSummary/CartSummary';
+export { CartProvider, useCart } from './model/cart.context';
+export type { CartItem } from './model/types';
+export { CartBadge } from './ui/CartBadge';

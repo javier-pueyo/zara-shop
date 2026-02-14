@@ -3,7 +3,7 @@
 import { Header } from '@/widgets/Header';
 import { Container } from '@/shared/ui/Container';
 import { Main } from '@/shared/ui/Main';
-import { SearchBar } from '@/features/SearchBar/ui/SearchBar';
+import { SearchBar } from '@/features/SearchBar';
 import { useProducts } from '@/entities/product';
 import { ProductListGrid } from '@/widgets/ProductList/ui/ProductListGrid';
 import { useState, useMemo } from 'react';
@@ -23,7 +23,7 @@ export const ListPage = () => {
     return (
         <div className="min-h-screen bg-surface">
             <Header>
-                <Header.Cart count={0} />
+                <Header.Cart />
             </Header>
 
             <Main>

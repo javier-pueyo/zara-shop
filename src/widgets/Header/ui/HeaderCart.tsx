@@ -1,16 +1,13 @@
 import Link from 'next/link';
-import { CartBadge } from '@/entities/cart';
+import { useCart, CartBadge } from '@/entities/cart';
 import { Icon } from '@/shared/ui/Icon/Icon';
 
-interface HeaderCartProps {
-    count?: number;
-}
-
-export const HeaderCart = ({ count = 0 }: HeaderCartProps) => {
+export const HeaderCart = () => {
+    const { count, isHydrated } = useCart();
     return (
         <Link href="/cart" className="flex items-center gap-1">
             <Icon name={count > 0 ? 'bag-solid' : 'bag-outline'} className="text-content-primary" />
-            <CartBadge count={count} />
+            {isHydrated && <CartBadge count={count} />}
         </Link>
     );
 };
