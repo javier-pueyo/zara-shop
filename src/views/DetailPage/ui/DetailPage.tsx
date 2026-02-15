@@ -21,12 +21,12 @@ export const DetailPage = ({ id }: DetailPageProps) => {
   if (!product) return null;
 
   return (
-    <div className="bg-surface min-h-screen overflow-hidden">
+    <div className="bg-surface min-h-screen">
       <Header>
         <Header.Cart />
       </Header>
       <Main>
-        <Main.TopBar>
+        <Main.TopBar className="sticky top-20 z-20">
           <Button
             className="py-3 text-xs uppercase"
             variant="plain"
