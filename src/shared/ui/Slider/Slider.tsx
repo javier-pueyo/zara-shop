@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { cn } from '@/shared/lib/utils';
+import { useSlider } from './useSlider';
 
 interface SliderProps {
     children: ReactNode;
@@ -23,160 +24,22 @@ const SliderItem = ({ children, className }: SliderItemProps) => {
 };
 
 const SliderRoot = ({ children, className }: SliderProps) => {
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const [isDraggingSlider, setIsDraggingSlider] = useState(false);
-    const [isDraggingBar, setIsDraggingBar] = useState(false);
-    const [barRatio, setBarRatio] = useState(0.25);
-
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const trackRef = useRef<HTMLDivElement>(null);
-    const startX = useRef(0);
-    const startScroll = useRef(0);
-
-    const handleScroll = () => {
-        if (scrollRef.current && !isDraggingSlider && !isDraggingBar) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-            const scrollableWidth = scrollWidth - clientWidth;
-            const progress = scrollableWidth > 0 ? (scrollLeft / scrollableWidth) * 100 : 0;
-            setScrollProgress(progress);
-        }
-    };
-
-    // Slider Drag logic
-    const isDown = useRef(false);
-    const didDrag = useRef(false);
-
-    const onSliderDown = (e: React.PointerEvent) => {
-        if (!scrollRef.current) return;
-        isDown.current = true;
-        didDrag.current = false;
-        startX.current = e.clientX;
-        startScroll.current = scrollRef.current.scrollLeft;
-    };
-
-    const onClickCapture = (e: React.MouseEvent) => {
-        if (didDrag.current) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    };
-
-    const onSliderMove = (e: React.PointerEvent) => {
-        if (!isDown.current || !scrollRef.current) return;
-        const dx = e.clientX - startX.current;
-
-        // Threshold for drag
-        if (Math.abs(dx) > 5) {
-            didDrag.current = true;
-            if (!isDraggingSlider) {
-                setIsDraggingSlider(true);
-                scrollRef.current.style.scrollSnapType = 'none';
-                scrollRef.current.style.scrollBehavior = 'auto';
-            }
-        }
-
-        if (isDraggingSlider) {
-            scrollRef.current.scrollLeft = startScroll.current - dx;
-
-            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-            const scrollableWidth = scrollWidth - clientWidth;
-            const progress = scrollableWidth > 0 ? (scrollLeft / scrollableWidth) * 100 : 0;
-            setScrollProgress(progress);
-        }
-    };
-
-    const onSliderUp = () => {
-        isDown.current = false;
-        if (!scrollRef.current) return;
-        if (isDraggingSlider) {
-            setIsDraggingSlider(false);
-            scrollRef.current.style.scrollSnapType = 'x mandatory';
-            scrollRef.current.style.scrollBehavior = 'smooth';
-        }
-        // Slightly delay resetting didDrag if needed, but here usually fine since click fires after up
-        setTimeout(() => {
-            didDrag.current = false;
-        }, 0);
-    };
-
-    useEffect(() => {
-        const updateWidth = () => {
-            if (scrollRef.current) {
-                const { left } = scrollRef.current.getBoundingClientRect();
-                const newWidth = window.innerWidth - left;
-                scrollRef.current.style.width = `${newWidth}px`;
-
-                const { scrollWidth } = scrollRef.current;
-                const ratio = scrollWidth > 0 ? Math.min(newWidth / scrollWidth, 1) : 0;
-                setBarRatio(ratio);
-            }
-        };
-
-        // Initial calculation
-        updateWidth();
-
-        // Update on resize
-        window.addEventListener('resize', updateWidth);
-
-        // Also update when children change (content might change width)
-        // We use a MutationObserver for more robust content change detection if needed,
-        // but for now re-running on children change or window resize is good.
-        // Also added a timeout to allow layout to settle
-        const timeoutId = setTimeout(updateWidth, 100);
-
-        return () => {
-            window.removeEventListener('resize', updateWidth);
-            clearTimeout(timeoutId);
-        };
-    }, [children]);
-
-    const onBarUp = (e: React.PointerEvent) => {
-        setIsDraggingBar(false);
-        if (scrollRef.current) {
-            scrollRef.current.style.scrollSnapType = 'x mandatory';
-            scrollRef.current.style.scrollBehavior = 'smooth';
-        }
-        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-    };
-
-    // Bar Drag logic
-    const onBarDown = (e: React.PointerEvent) => {
-        if (!scrollRef.current || !trackRef.current) return;
-        setIsDraggingBar(true);
-        startX.current = e.clientX;
-        startScroll.current = scrollRef.current.scrollLeft;
-        scrollRef.current.style.scrollSnapType = 'none';
-        scrollRef.current.style.scrollBehavior = 'auto';
-        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    };
-
-    const onBarMove = (e: React.PointerEvent) => {
-        if (!isDraggingBar || !scrollRef.current || !trackRef.current) return;
-        const dx = e.clientX - startX.current;
-        const { scrollWidth, clientWidth } = scrollRef.current;
-        const trackWidth = trackRef.current.clientWidth;
-        const barWidth = trackWidth * barRatio;
-
-        const scrollDelta = (dx / (trackWidth - barWidth)) * (scrollWidth - clientWidth);
-        scrollRef.current.scrollLeft = startScroll.current + scrollDelta;
-
-        const scrollableWidth = scrollWidth - clientWidth;
-        const progress = scrollableWidth > 0 ? (scrollRef.current.scrollLeft / scrollableWidth) * 100 : 0;
-        setScrollProgress(progress);
-    };
+    const { refs, state, handlers } = useSlider(children);
+    const { scrollRef, trackRef } = refs;
+    const { scrollProgress, barRatio, isDraggingSlider, isDraggingBar } = state;
 
     return (
         <div className={className}>
             <div className="relative">
                 <div
                     ref={scrollRef}
-                    onScroll={handleScroll}
-                    onPointerDown={onSliderDown}
-                    onPointerMove={onSliderMove}
-                    onPointerUp={onSliderUp}
-                    onPointerLeave={onSliderUp}
-                    onClickCapture={onClickCapture}
-                    onDragStart={(e) => e.preventDefault()}
+                    onScroll={handlers.slider.onScroll}
+                    onPointerDown={handlers.slider.onPointerDown}
+                    onPointerMove={handlers.slider.onPointerMove}
+                    onPointerUp={handlers.slider.onPointerUp}
+                    onPointerLeave={handlers.slider.onPointerLeave}
+                    onClickCapture={handlers.slider.onClickCapture}
+                    onDragStart={handlers.slider.onDragStart}
                     className={cn(
                         "flex overflow-x-auto no-scrollbar border-t border-l border-ui-border-primary snap-x snap-mandatory touch-pan-y transition-all pr-4",
                         isDraggingSlider ? "cursor-grabbing" : "cursor-grab"
@@ -188,9 +51,9 @@ const SliderRoot = ({ children, className }: SliderProps) => {
 
             <div ref={trackRef} className="mt-12 h-[1px] w-full bg-ui-border-secondary relative">
                 <div
-                    onPointerDown={onBarDown}
-                    onPointerMove={onBarMove}
-                    onPointerUp={onBarUp}
+                    onPointerDown={handlers.bar.onPointerDown}
+                    onPointerMove={handlers.bar.onPointerMove}
+                    onPointerUp={handlers.bar.onPointerUp}
                     className={cn(
                         "absolute top-1/2 left-0 h-[1px] bg-content-primary -translate-y-1/2 cursor-pointer touch-none",
                         !isDraggingBar && !isDraggingSlider && "transition-transform duration-75 ease-out"
