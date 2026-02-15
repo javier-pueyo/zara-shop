@@ -56,6 +56,8 @@
   --text-xl--line-height: 1;
 
   /* --- Z-INDEX --- */
+  --z-index-base: 10;
+  --z-index-sub-header: 20;
   --z-index-header: 50;
 
   /* --- BREAKPOINTS --- */
@@ -90,6 +92,7 @@
 }
 
 @layer utilities {
+
   /* Ocultar barra de scroll para Chrome, Safari y Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;

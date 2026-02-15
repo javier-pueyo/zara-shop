@@ -43,7 +43,7 @@ export const BadgeSelector = ({
                   'flex items-center justify-center',
                   'text-content-primary text-sm uppercase',
                   checked
-                    ? 'border-ui-border-primary z-10'
+                    ? 'border-ui-border-primary z-base'
                     : 'border-ui-border-secondary',
                 )
               }
