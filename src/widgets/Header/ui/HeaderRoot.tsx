@@ -27,6 +27,7 @@ export const HeaderRoot = ({ children, className = '' }: HeaderRootProps) => {
               width={74}
               className="h-6 w-auto"
               priority
+              style={{ width: 'auto' }}
             />
           </Link>
           {children}
