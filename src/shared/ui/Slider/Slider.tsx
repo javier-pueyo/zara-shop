@@ -43,31 +43,60 @@ const SliderRoot = ({ children, className }: SliderProps) => {
     };
 
     // Slider Drag logic
+    const isDown = useRef(false);
+    const didDrag = useRef(false);
+
     const onSliderDown = (e: React.PointerEvent) => {
         if (!scrollRef.current) return;
-        setIsDraggingSlider(true);
+        isDown.current = true;
+        didDrag.current = false;
         startX.current = e.clientX;
         startScroll.current = scrollRef.current.scrollLeft;
-        scrollRef.current.style.scrollSnapType = 'none';
-        scrollRef.current.style.scrollBehavior = 'auto';
+    };
+
+    const onClickCapture = (e: React.MouseEvent) => {
+        if (didDrag.current) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
     };
 
     const onSliderMove = (e: React.PointerEvent) => {
-        if (!isDraggingSlider || !scrollRef.current) return;
+        if (!isDown.current || !scrollRef.current) return;
         const dx = e.clientX - startX.current;
-        scrollRef.current.scrollLeft = startScroll.current - dx;
 
-        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-        const scrollableWidth = scrollWidth - clientWidth;
-        const progress = scrollableWidth > 0 ? (scrollLeft / scrollableWidth) * 100 : 0;
-        setScrollProgress(progress);
+        // Threshold for drag
+        if (Math.abs(dx) > 5) {
+            didDrag.current = true;
+            if (!isDraggingSlider) {
+                setIsDraggingSlider(true);
+                scrollRef.current.style.scrollSnapType = 'none';
+                scrollRef.current.style.scrollBehavior = 'auto';
+            }
+        }
+
+        if (isDraggingSlider) {
+            scrollRef.current.scrollLeft = startScroll.current - dx;
+
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+            const scrollableWidth = scrollWidth - clientWidth;
+            const progress = scrollableWidth > 0 ? (scrollLeft / scrollableWidth) * 100 : 0;
+            setScrollProgress(progress);
+        }
     };
 
     const onSliderUp = () => {
+        isDown.current = false;
         if (!scrollRef.current) return;
-        setIsDraggingSlider(false);
-        scrollRef.current.style.scrollSnapType = 'x mandatory';
-        scrollRef.current.style.scrollBehavior = 'smooth';
+        if (isDraggingSlider) {
+            setIsDraggingSlider(false);
+            scrollRef.current.style.scrollSnapType = 'x mandatory';
+            scrollRef.current.style.scrollBehavior = 'smooth';
+        }
+        // Slightly delay resetting didDrag if needed, but here usually fine since click fires after up
+        setTimeout(() => {
+            didDrag.current = false;
+        }, 0);
     };
 
     useEffect(() => {
@@ -146,9 +175,11 @@ const SliderRoot = ({ children, className }: SliderProps) => {
                     onPointerMove={onSliderMove}
                     onPointerUp={onSliderUp}
                     onPointerLeave={onSliderUp}
+                    onClickCapture={onClickCapture}
+                    onDragStart={(e) => e.preventDefault()}
                     className={cn(
                         "flex overflow-x-auto no-scrollbar border-t border-l border-ui-border-primary snap-x snap-mandatory touch-pan-y transition-all pr-4",
-                        isDraggingSlider ? "cursor-grabbing [&>*]:pointer-events-none" : "cursor-grab"
+                        isDraggingSlider ? "cursor-grabbing" : "cursor-grab"
                     )}
                 >
                     {children}

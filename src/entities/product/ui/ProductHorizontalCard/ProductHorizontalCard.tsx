@@ -17,6 +17,7 @@ export const ProductHorizontalCard = ({
                     src={imageUrl}
                     alt={productName}
                     ratio="vertical"
+                    fit="contain"
                 />
             </div>
             <div className="py-10 flex flex-col">
