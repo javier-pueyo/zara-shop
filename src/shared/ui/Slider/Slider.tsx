@@ -15,7 +15,7 @@ interface SliderItemProps {
 const SliderItem = ({ children, className }: SliderItemProps) => {
     return (
         <div className={cn(
-            "min-w-[80vw] tablet:min-w-[40vw] desktop:min-w-[18vw] flex-shrink-0 snap-start border-r border-b border-ui-border-primary p-4",
+            "min-w-[80vw] tablet:min-w-[40vw] desktop:min-w-[18vw] flex-shrink-0 snap-start border-r border-b border-ui-border-primary",
             className
         )}>
             {children}
@@ -41,7 +41,7 @@ const SliderRoot = ({ children, className }: SliderProps) => {
                     onClickCapture={handlers.slider.onClickCapture}
                     onDragStart={handlers.slider.onDragStart}
                     className={cn(
-                        "flex overflow-x-auto no-scrollbar border-t border-l border-ui-border-primary snap-x snap-mandatory touch-pan-y transition-all pr-4",
+                        "flex overflow-x-auto no-scrollbar border-t border-l border-ui-border-primary snap-x snap-mandatory touch-pan-y",
                         isDraggingSlider ? "cursor-grabbing" : "cursor-grab"
                     )}
                 >

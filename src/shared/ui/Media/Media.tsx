@@ -4,8 +4,8 @@ import { cn } from '@/shared/lib/utils';
 interface MediaProps extends Partial<Omit<ImageProps, 'src' | 'alt'>> {
     ratio?: 'horizontal' | 'vertical' | 'none';
     fit?: 'cover' | 'contain';
-    multiply?: boolean;
     className?: string;
+    imageClassName?: string;
     src: string;
     alt: string;
 }
@@ -13,8 +13,8 @@ interface MediaProps extends Partial<Omit<ImageProps, 'src' | 'alt'>> {
 export const Media = ({
     ratio = 'none',
     fit = 'cover',
-    multiply = false,
     className,
+    imageClassName,
     ...rest
 }: MediaProps) => {
 
@@ -30,7 +30,7 @@ export const Media = ({
                 fill
                 className={cn(
                     fit === 'cover' ? "object-cover" : "object-contain",
-                    multiply && "mix-blend-multiply"
+                    imageClassName
                 )}
                 {...rest}
             />
