@@ -92,7 +92,6 @@
 }
 
 @layer utilities {
-
   /* Ocultar barra de scroll para Chrome, Safari y Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;

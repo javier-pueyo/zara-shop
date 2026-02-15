@@ -72,7 +72,7 @@ export const ProductPurchaseSection = ({
             ratio="vertical"
             fit="contain"
             priority
-            className="tablet:w-full relative z-base w-[70%] animate-fade-in"
+            className="tablet:w-full z-base animate-fade-in relative w-[70%]"
           />
         )}
       </div>
