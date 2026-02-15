@@ -5,7 +5,8 @@ import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Zara',
-  description: 'Discover the latest mobile phones and accessories at the best prices.',
+  description:
+    'Discover the latest mobile phones and accessories at the best prices.',
 };
 
 export default function RootLayout({

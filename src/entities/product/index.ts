@@ -10,4 +10,10 @@ export { ProductSpecs } from './ui/ProductSpecs/ProductSpecs';
 export { useProducts, useProductDetail } from './api/hooks';
 
 // Model Types
-export type { Product, ProductDetail, CartItem, ColorOption, StorageOption } from './model/types';
+export type {
+  Product,
+  ProductDetail,
+  CartItem,
+  ColorOption,
+  StorageOption,
+} from './model/types';

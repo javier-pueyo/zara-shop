@@ -35,8 +35,8 @@ vi.mock('@/entities/product', async (importOriginal) => {
           colorOptions: [],
           storageOptions: [],
           similarProducts: [],
-          specs: {}
-        }
+          specs: {},
+        },
       ],
       isLoading: false,
       isError: false,
@@ -51,11 +51,13 @@ describe('Home', () => {
         <CartProvider>
           <Home />
         </CartProvider>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // Smoke Test: This confirms the app shell (providers + main layout) is mounting correctly
     // by checking for the existence of a core element like the search bar.
-    expect(screen.getByRole('textbox', { name: /search/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('textbox', { name: /search/i }),
+    ).toBeInTheDocument();
   });
 });

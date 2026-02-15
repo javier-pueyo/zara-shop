@@ -50,10 +50,11 @@ individual.
 
 DISEÑO
 El diseño de las vistas deberá ser responsive y ajustarse a los diseños definidos en Figma
+
 - Diseños de figma
 - Prototipo de figma
 - FUENTES: Para las fuentes de la aplicación se deberá utilizar: font-family: Helvetica,
-Arial, sans-serif;
+  Arial, sans-serif;
 
 ZARA CHALLENGE
 

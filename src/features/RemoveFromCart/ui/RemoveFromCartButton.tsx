@@ -5,23 +5,23 @@ import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/Button/Button';
 
 interface RemoveFromCartButtonProps {
-    hash: string;
-    className?: string;
+  hash: string;
+  className?: string;
 }
 
 export const RemoveFromCartButton = ({
-    hash,
-    className,
+  hash,
+  className,
 }: RemoveFromCartButtonProps) => {
-    const { removeItem } = useCart();
+  const { removeItem } = useCart();
 
-    return (
-        <Button
-            variant="plain"
-            onClick={() => removeItem(hash)}
-            className={cn("text-xs text-content-danger", className)}
-        >
-            Eliminar
-        </Button>
-    );
+  return (
+    <Button
+      variant="plain"
+      onClick={() => removeItem(hash)}
+      className={cn('text-content-danger text-xs', className)}
+    >
+      Eliminar
+    </Button>
+  );
 };

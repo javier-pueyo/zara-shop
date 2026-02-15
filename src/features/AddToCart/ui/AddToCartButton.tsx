@@ -3,22 +3,22 @@
 import { Button } from '@/shared/ui/Button/Button';
 
 interface AddToCartButtonProps {
-    disabled?: boolean;
-    className?: string;
+  disabled?: boolean;
+  className?: string;
 }
 
 export const AddToCartButton = ({
-    disabled,
-    className
+  disabled,
+  className,
 }: AddToCartButtonProps) => {
-    return (
-        <Button
-            type="submit"
-            variant="primary"
-            className={className}
-            disabled={disabled}
-        >
-            Añadir
-        </Button>
-    );
+  return (
+    <Button
+      type="submit"
+      variant="primary"
+      className={className}
+      disabled={disabled}
+    >
+      Añadir
+    </Button>
+  );
 };

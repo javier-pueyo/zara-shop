@@ -3,168 +3,181 @@ import { useSlider } from './useSlider';
 import { vi, describe, it, expect } from 'vitest';
 
 describe('useSlider', () => {
-    let scrollContainer: HTMLDivElement;
-    let trackContainer: HTMLDivElement;
+  let scrollContainer: HTMLDivElement;
+  let trackContainer: HTMLDivElement;
 
-    // Helper to setup refs
-    const setupRefs = (result: any) => {
-        // Mock DOM elements
-        scrollContainer = document.createElement('div');
-        trackContainer = document.createElement('div');
+  // Helper to setup refs
+  const setupRefs = (result: any) => {
+    // Mock DOM elements
+    scrollContainer = document.createElement('div');
+    trackContainer = document.createElement('div');
 
-        // Mock dimensional properties
-        Object.defineProperty(scrollContainer, 'scrollWidth', { configurable: true, value: 1000 });
-        Object.defineProperty(scrollContainer, 'clientWidth', { configurable: true, value: 500 });
-
-        // Mock scrollLeft with getter/setter to track changes
-        let scrollLeft = 0;
-        Object.defineProperty(scrollContainer, 'scrollLeft', {
-            configurable: true,
-            get: () => scrollLeft,
-            set: (v) => { scrollLeft = v; },
-        });
-
-        // Mock getBoundingClientRect
-        Object.defineProperty(scrollContainer, 'getBoundingClientRect', {
-            value: () => ({ left: 0 })
-        });
-
-        Object.defineProperty(trackContainer, 'clientWidth', { configurable: true, value: 500 });
-
-        // Assign refs
-        (result.current.refs.scrollRef as any).current = scrollContainer;
-        (result.current.refs.trackRef as any).current = trackContainer;
-    };
-
-    it('should initialize with default state', () => {
-        const { result } = renderHook(() => useSlider(null));
-
-        expect(result.current.state.scrollProgress).toBe(0);
-        expect(result.current.state.isDraggingSlider).toBe(false);
-        expect(result.current.state.isDraggingBar).toBe(false);
-        expect(typeof result.current.handlers.slider.onPointerDown).toBe('function');
+    // Mock dimensional properties
+    Object.defineProperty(scrollContainer, 'scrollWidth', {
+      configurable: true,
+      value: 1000,
+    });
+    Object.defineProperty(scrollContainer, 'clientWidth', {
+      configurable: true,
+      value: 500,
     });
 
-    it('should not start drag if movement is within threshold', () => {
-        const { result } = renderHook(() => useSlider(null));
-        setupRefs(result);
-
-        act(() => {
-            // Down 
-            result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
-            // Move 4px
-            result.current.handlers.slider.onPointerMove({ clientX: 104 } as any);
-        });
-
-        expect(result.current.state.isDraggingSlider).toBe(false);
+    // Mock scrollLeft with getter/setter to track changes
+    let scrollLeft = 0;
+    Object.defineProperty(scrollContainer, 'scrollLeft', {
+      configurable: true,
+      get: () => scrollLeft,
+      set: (v) => {
+        scrollLeft = v;
+      },
     });
 
-    it('should start drag if movement exceeds threshold', () => {
-        const { result } = renderHook(() => useSlider(null));
-        setupRefs(result);
-
-        act(() => {
-            // Down
-            result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
-            // Move 6px
-            result.current.handlers.slider.onPointerMove({ clientX: 106 } as any);
-        });
-
-        expect(result.current.state.isDraggingSlider).toBe(true);
+    // Mock getBoundingClientRect
+    Object.defineProperty(scrollContainer, 'getBoundingClientRect', {
+      value: () => ({ left: 0 }),
     });
 
-    it('should update scroll position when dragging slider', () => {
-        const { result } = renderHook(() => useSlider(null));
-        setupRefs(result);
-
-        act(() => {
-            // Down
-            result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
-            // Move 10px (past threshold)
-            result.current.handlers.slider.onPointerMove({ clientX: 90 } as any);
-            // Dragging left means scrolling right (increasing scrollLeft)
-            // Delta is -10. New scrollLeft should be startScroll (0) - (-10) = 10
-        });
-
-        expect(scrollContainer.scrollLeft).toBe(10);
-        // Progress: 10 / (1000 - 500) * 100 = 2%
-        expect(result.current.state.scrollProgress).toBe(2);
+    Object.defineProperty(trackContainer, 'clientWidth', {
+      configurable: true,
+      value: 500,
     });
 
-    it('should prevent default click if dragged', () => {
-        const { result } = renderHook(() => useSlider(null));
-        setupRefs(result);
-        const preventDefault = vi.fn();
-        const stopPropagation = vi.fn();
+    // Assign refs
+    (result.current.refs.scrollRef as any).current = scrollContainer;
+    (result.current.refs.trackRef as any).current = trackContainer;
+  };
 
-        act(() => {
-            // Drag sequence
-            result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
-            result.current.handlers.slider.onPointerMove({ clientX: 110 } as any);
-            result.current.handlers.slider.onPointerUp();
-        });
+  it('should initialize with default state', () => {
+    const { result } = renderHook(() => useSlider(null));
 
-        // Click event fires after Up
-        act(() => {
-            result.current.handlers.slider.onClickCapture({
-                preventDefault,
-                stopPropagation
-            } as any);
-        });
+    expect(result.current.state.scrollProgress).toBe(0);
+    expect(result.current.state.isDraggingSlider).toBe(false);
+    expect(result.current.state.isDraggingBar).toBe(false);
+    expect(typeof result.current.handlers.slider.onPointerDown).toBe(
+      'function',
+    );
+  });
 
-        expect(preventDefault).toHaveBeenCalled();
-        expect(stopPropagation).toHaveBeenCalled();
+  it('should not start drag if movement is within threshold', () => {
+    const { result } = renderHook(() => useSlider(null));
+    setupRefs(result);
+
+    act(() => {
+      // Down
+      result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
+      // Move 4px
+      result.current.handlers.slider.onPointerMove({ clientX: 104 } as any);
     });
 
-    it('should allow click if not dragged', () => {
-        const { result } = renderHook(() => useSlider(null));
-        setupRefs(result);
-        const preventDefault = vi.fn();
-        const stopPropagation = vi.fn();
+    expect(result.current.state.isDraggingSlider).toBe(false);
+  });
 
-        act(() => {
-            // Click sequence (no move)
-            result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
-            result.current.handlers.slider.onPointerUp();
-        });
+  it('should start drag if movement exceeds threshold', () => {
+    const { result } = renderHook(() => useSlider(null));
+    setupRefs(result);
 
-        act(() => {
-            result.current.handlers.slider.onClickCapture({
-                preventDefault,
-                stopPropagation
-            } as any);
-        });
-
-        expect(preventDefault).not.toHaveBeenCalled();
-        expect(stopPropagation).not.toHaveBeenCalled();
+    act(() => {
+      // Down
+      result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
+      // Move 6px
+      result.current.handlers.slider.onPointerMove({ clientX: 106 } as any);
     });
 
-    describe('Scrollbar Drag', () => {
-        it('should update scroll position when dragging bar', () => {
-            const { result } = renderHook(() => useSlider(null));
-            setupRefs(result);
+    expect(result.current.state.isDraggingSlider).toBe(true);
+  });
 
-            const setPointerCapture = vi.fn();
+  it('should update scroll position when dragging slider', () => {
+    const { result } = renderHook(() => useSlider(null));
+    setupRefs(result);
 
-            act(() => {
-                // Bar Down
-                result.current.handlers.bar.onPointerDown({
-                    clientX: 100,
-                    pointerId: 1,
-                    currentTarget: { setPointerCapture }
-                } as any);
-            });
-
-            expect(result.current.state.isDraggingBar).toBe(true);
-            expect(setPointerCapture).toHaveBeenCalledWith(1);
-
-            act(() => {
-                // Bar Move
-                result.current.handlers.bar.onPointerMove({ clientX: 110 } as any);
-            });
-
-            // We expect scrollLeft to change from 0
-            expect(scrollContainer.scrollLeft).not.toBe(0);
-        });
+    act(() => {
+      // Down
+      result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
+      // Move 10px (past threshold)
+      result.current.handlers.slider.onPointerMove({ clientX: 90 } as any);
+      // Dragging left means scrolling right (increasing scrollLeft)
+      // Delta is -10. New scrollLeft should be startScroll (0) - (-10) = 10
     });
+
+    expect(scrollContainer.scrollLeft).toBe(10);
+    // Progress: 10 / (1000 - 500) * 100 = 2%
+    expect(result.current.state.scrollProgress).toBe(2);
+  });
+
+  it('should prevent default click if dragged', () => {
+    const { result } = renderHook(() => useSlider(null));
+    setupRefs(result);
+    const preventDefault = vi.fn();
+    const stopPropagation = vi.fn();
+
+    act(() => {
+      // Drag sequence
+      result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
+      result.current.handlers.slider.onPointerMove({ clientX: 110 } as any);
+      result.current.handlers.slider.onPointerUp();
+    });
+
+    // Click event fires after Up
+    act(() => {
+      result.current.handlers.slider.onClickCapture({
+        preventDefault,
+        stopPropagation,
+      } as any);
+    });
+
+    expect(preventDefault).toHaveBeenCalled();
+    expect(stopPropagation).toHaveBeenCalled();
+  });
+
+  it('should allow click if not dragged', () => {
+    const { result } = renderHook(() => useSlider(null));
+    setupRefs(result);
+    const preventDefault = vi.fn();
+    const stopPropagation = vi.fn();
+
+    act(() => {
+      // Click sequence (no move)
+      result.current.handlers.slider.onPointerDown({ clientX: 100 } as any);
+      result.current.handlers.slider.onPointerUp();
+    });
+
+    act(() => {
+      result.current.handlers.slider.onClickCapture({
+        preventDefault,
+        stopPropagation,
+      } as any);
+    });
+
+    expect(preventDefault).not.toHaveBeenCalled();
+    expect(stopPropagation).not.toHaveBeenCalled();
+  });
+
+  describe('Scrollbar Drag', () => {
+    it('should update scroll position when dragging bar', () => {
+      const { result } = renderHook(() => useSlider(null));
+      setupRefs(result);
+
+      const setPointerCapture = vi.fn();
+
+      act(() => {
+        // Bar Down
+        result.current.handlers.bar.onPointerDown({
+          clientX: 100,
+          pointerId: 1,
+          currentTarget: { setPointerCapture },
+        } as any);
+      });
+
+      expect(result.current.state.isDraggingBar).toBe(true);
+      expect(setPointerCapture).toHaveBeenCalledWith(1);
+
+      act(() => {
+        // Bar Move
+        result.current.handlers.bar.onPointerMove({ clientX: 110 } as any);
+      });
+
+      // We expect scrollLeft to change from 0
+      expect(scrollContainer.scrollLeft).not.toBe(0);
+    });
+  });
 });

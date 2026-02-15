@@ -3,14 +3,14 @@ import { ProductDetail } from '@/entities/product/model/types';
 import { mapProductToCartItem } from './mapper';
 
 export const useAddToCart = (product: ProductDetail) => {
-    const { addItem } = useCart();
+  const { addItem } = useCart();
 
-    const addToCart = (color: string, storage: string) => {
-        const item = mapProductToCartItem(product, color, storage);
-        if (!item) return;
+  const addToCart = (color: string, storage: string) => {
+    const item = mapProductToCartItem(product, color, storage);
+    if (!item) return;
 
-        addItem(item);
-    };
+    addItem(item);
+  };
 
-    return { addToCart };
+  return { addToCart };
 };

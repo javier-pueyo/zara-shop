@@ -1,17 +1,21 @@
 import { cn } from '@/shared/lib/utils';
 interface CartSummaryProps {
-    total: number;
-    className?: string;
+  total: number;
+  className?: string;
 }
 
 export const CartSummary = ({ total, className }: CartSummaryProps) => {
-    return (
-        <div className={cn(
-            "flex gap-6 items-center w-full justify-between md:w-auto md:justify-start",
-            className
-        )}>
-            <span className="text-md uppercase text-content-primary">Total</span>
-            <span className="text-md uppercase text-content-primary">{total} eur</span>
-        </div>
-    );
+  return (
+    <div
+      className={cn(
+        'flex w-full items-center justify-between gap-6 md:w-auto md:justify-start',
+        className,
+      )}
+    >
+      <span className="text-md text-content-primary uppercase">Total</span>
+      <span className="text-md text-content-primary uppercase">
+        {total} eur
+      </span>
+    </div>
+  );
 };

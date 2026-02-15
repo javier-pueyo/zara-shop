@@ -4,9 +4,9 @@ import { MainSection } from './Section';
 import { MainNavigation } from './Navigation';
 
 type MainComponent = typeof MainRoot & {
-    TopBar: typeof MainTopBar;
-    Section: typeof MainSection;
-    Navigation: typeof MainNavigation;
+  TopBar: typeof MainTopBar;
+  Section: typeof MainSection;
+  Navigation: typeof MainNavigation;
 };
 
 const Main = MainRoot as MainComponent;

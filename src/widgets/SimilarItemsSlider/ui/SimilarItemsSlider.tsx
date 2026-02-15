@@ -5,24 +5,27 @@ import { Slider } from '@/shared/ui/Slider';
 import { Typography } from '@/shared/ui/Typography';
 
 interface SimilarItemsSliderProps {
-    products: Product[];
-    className?: string;
+  products: Product[];
+  className?: string;
 }
 
-export const SimilarItemsSlider = ({ products, className }: SimilarItemsSliderProps) => {
-    return (
-        <div className={cn("w-full", className)}>
-            <Typography variant="title" as="h2">Similar Items</Typography>
+export const SimilarItemsSlider = ({
+  products,
+  className,
+}: SimilarItemsSliderProps) => {
+  return (
+    <div className={cn('w-full', className)}>
+      <Typography variant="title" as="h2">
+        Similar Items
+      </Typography>
 
-            <Slider className="mt-10">
-                {products.map((product) => (
-                    <Slider.Item key={product.id}>
-                        <ProductCard
-                            product={product}
-                        />
-                    </Slider.Item>
-                ))}
-            </Slider>
-        </div>
-    );
+      <Slider className="mt-10">
+        {products.map((product) => (
+          <Slider.Item key={product.id}>
+            <ProductCard product={product} />
+          </Slider.Item>
+        ))}
+      </Slider>
+    </div>
+  );
 };

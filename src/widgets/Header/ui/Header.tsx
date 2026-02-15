@@ -3,7 +3,7 @@ import { HeaderCart } from './HeaderCart';
 
 // Definimos el tipo compuesto
 type HeaderComponent = typeof HeaderRoot & {
-    Cart: typeof HeaderCart;
+  Cart: typeof HeaderCart;
 };
 
 // Asignamos las propiedades
