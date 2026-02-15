@@ -6,7 +6,6 @@ import { Media } from '@/shared/ui/Media';
 
 import { ProductConfigurator } from '@/features/ProductConfigurator';
 import { useAddToCart, AddToCartButton } from '@/features/AddToCart';
-
 import { cn } from '@/shared/lib/utils';
 
 interface ProductPurchaseSectionProps {
@@ -27,6 +26,17 @@ export const ProductPurchaseSection = ({
   );
   const selectedColorImage = selectedColorOption?.imageUrl;
   const currentImage = selectedColorImage ?? product.colorOptions[0]?.imageUrl;
+  const [lastImage, setLastImage] = useState<string | null>(currentImage);
+
+  /**
+   * Updates the last image state after a delay to allow for fade-in animation.
+   */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLastImage(currentImage);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [currentImage]);
 
   const { addToCart } = useAddToCart(product);
 
@@ -44,16 +54,28 @@ export const ProductPurchaseSection = ({
         className,
       )}
     >
-      {currentImage && (
-        <Media
-          src={currentImage}
-          alt={product.name}
-          ratio="vertical"
-          fit="contain"
-          priority
-          className="tablet:w-full w-[70%]"
-        />
-      )}
+      <div className="relative flex justify-center">
+        {lastImage && lastImage !== currentImage && (
+          <Media
+            src={lastImage}
+            alt={product.name}
+            ratio="vertical"
+            fit="contain"
+            className="tablet:w-full absolute inset-0 w-[70%]"
+          />
+        )}
+        {currentImage && (
+          <Media
+            key={currentImage}
+            src={currentImage}
+            alt={product.name}
+            ratio="vertical"
+            fit="contain"
+            priority
+            className="tablet:w-full relative z-10 w-[70%] animate-fade-in"
+          />
+        )}
+      </div>
 
       <form
         onSubmit={handleSubmit}

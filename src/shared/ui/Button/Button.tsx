@@ -25,7 +25,7 @@ const ButtonRoot = ({
   const baseStyles = cn(
     'inline-flex items-center gap-2',
     'text-center align-middle',
-    'cursor-pointer disabled:cursor-not-allowed',
+    'cursor-pointer transition-colors duration-500 disabled:cursor-not-allowed',
   );
 
   const variants = {
