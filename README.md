@@ -108,3 +108,11 @@ Esto dificulta una alineación visual perfecta al "pixel". Idealmente, esto se s
 ### Favicon
 
 El logotipo actual de la marca es muy horizontal y pierde legibilidad al usarse como favicon. Se recomienda diseñar una versión isologo/símbolo para este propósito.
+
+## 🔍 Clarificación de Requisitos
+
+### Selección de Imagen en Vista de Detalle
+
+Se identificó una discrepancia técnica: según las instrucciones, no debe haber selección por defecto de color ni almacenamiento, pero el endpoint de detalle no devuelve una imagen "maestra" o por defecto (a diferencia del listado).
+
+**Decisión**: Para evitar un espacio vacío y mejorar la UX, se ha optado por mostrar la primera imagen del listado de colores disponible como estado inicial, manteniendo los selectores sin marcar hasta la interacción del usuario.
