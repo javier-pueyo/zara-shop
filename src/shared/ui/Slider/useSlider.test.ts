@@ -52,7 +52,6 @@ describe('useSlider', () => {
 
     expect(result.current.state.scrollProgress).toBe(0);
     expect(result.current.state.isDraggingSlider).toBe(false);
-    expect(result.current.state.isDraggingBar).toBe(false);
     expect(typeof result.current.handlers.slider.onPointerDown).toBe(
       'function',
     );
@@ -152,32 +151,4 @@ describe('useSlider', () => {
     expect(stopPropagation).not.toHaveBeenCalled();
   });
 
-  describe('Scrollbar Drag', () => {
-    it('should update scroll position when dragging bar', () => {
-      const { result } = renderHook(() => useSlider(null));
-      setupRefs(result);
-
-      const setPointerCapture = vi.fn();
-
-      act(() => {
-        // Bar Down
-        result.current.handlers.bar.onPointerDown({
-          clientX: 100,
-          pointerId: 1,
-          currentTarget: { setPointerCapture },
-        } as any);
-      });
-
-      expect(result.current.state.isDraggingBar).toBe(true);
-      expect(setPointerCapture).toHaveBeenCalledWith(1);
-
-      act(() => {
-        // Bar Move
-        result.current.handlers.bar.onPointerMove({ clientX: 110 } as any);
-      });
-
-      // We expect scrollLeft to change from 0
-      expect(scrollContainer.scrollLeft).not.toBe(0);
-    });
-  });
 });

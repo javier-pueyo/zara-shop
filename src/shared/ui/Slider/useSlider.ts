@@ -1,14 +1,15 @@
 import { useState, useRef, useEffect, RefObject } from 'react';
 
 export const useSlider = (children: React.ReactNode) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [barRatio, setBarRatio] = useState(0.25);
+  const [paddingLeft, setPaddingLeft] = useState(0);
 
   // Drag states
   const [isDraggingSlider, setIsDraggingSlider] = useState(false);
-  const [isDraggingBar, setIsDraggingBar] = useState(false);
 
   // Refs for drag calculations
   const startX = useRef(0);
@@ -21,14 +22,14 @@ export const useSlider = (children: React.ReactNode) => {
    * Updates the scrollbar thumb size based on this ratio.
    */
   const updateWidth = () => {
-    if (scrollRef.current) {
-      const { left } = scrollRef.current.getBoundingClientRect();
-      // We set width based on window width - offset to make it break out of container
-      const newWidth = window.innerWidth - left;
-      scrollRef.current.style.width = `${newWidth}px`;
+    if (containerRef.current) {
+      const { left } = containerRef.current.getBoundingClientRect();
+      setPaddingLeft(left);
+    }
 
-      const { scrollWidth } = scrollRef.current;
-      const ratio = scrollWidth > 0 ? Math.min(newWidth / scrollWidth, 1) : 0;
+    if (scrollRef.current) {
+      const { clientWidth, scrollWidth } = scrollRef.current;
+      const ratio = scrollWidth > 0 ? Math.min(clientWidth / scrollWidth, 1) : 0;
       setBarRatio(ratio);
     }
   };
@@ -38,7 +39,7 @@ export const useSlider = (children: React.ReactNode) => {
    * Only runs when not actively dragging to avoid conflicts.
    */
   const handleScroll = () => {
-    if (scrollRef.current && !isDraggingSlider && !isDraggingBar) {
+    if (scrollRef.current && !isDraggingSlider) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
       const scrollableWidth = scrollWidth - clientWidth;
       const progress =
@@ -138,65 +139,14 @@ export const useSlider = (children: React.ReactNode) => {
     }, 0);
   };
 
-  // --- Event Handlers (Bar) ---
-
-  /**
-   * Initiates drag for the scrollbar thumb.
-   * Uses pointer capture to track movement outside the element.
-   */
-  const onBarDown = (e: React.PointerEvent) => {
-    if (!scrollRef.current || !trackRef.current) return;
-    setIsDraggingBar(true);
-    startX.current = e.clientX;
-    startScroll.current = scrollRef.current.scrollLeft;
-    scrollRef.current.style.scrollSnapType = 'none';
-    scrollRef.current.style.scrollBehavior = 'auto';
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-  };
-
-  /**
-   * Translates scrollbar movement into content scroll position.
-   * Calculates relative movement based on track/content width ratio.
-   */
-  const onBarMove = (e: React.PointerEvent) => {
-    if (!isDraggingBar || !scrollRef.current || !trackRef.current) return;
-
-    const dragMovedDistance = e.clientX - startX.current;
-    const { scrollWidth, clientWidth } = scrollRef.current;
-    const trackWidth = trackRef.current.clientWidth;
-    const barWidth = trackWidth * barRatio;
-
-    // Calculate how much we should scroll content based on bar movement
-    const scrollDelta =
-      (dragMovedDistance / (trackWidth - barWidth)) *
-      (scrollWidth - clientWidth);
-
-    scrollRef.current.scrollLeft = startScroll.current + scrollDelta;
-
-    const scrollableWidth = scrollWidth - clientWidth;
-    const progress =
-      scrollableWidth > 0
-        ? (scrollRef.current.scrollLeft / scrollableWidth) * 100
-        : 0;
-    setScrollProgress(progress);
-  };
-
-  /**
-   * Ends scrollbar drag and releases pointer capture.
-   * Restores default scroll behavior settings.
-   */
-  const onBarUp = (e: React.PointerEvent) => {
-    setIsDraggingBar(false);
-    if (scrollRef.current) {
-      scrollRef.current.style.scrollSnapType = 'x mandatory';
-      scrollRef.current.style.scrollBehavior = 'smooth';
-    }
-    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-  };
-
   return {
-    refs: { scrollRef, trackRef },
-    state: { scrollProgress, barRatio, isDraggingSlider, isDraggingBar },
+    refs: { scrollRef, trackRef, containerRef },
+    state: {
+      scrollProgress,
+      barRatio,
+      isDraggingSlider,
+      paddingLeft,
+    },
     handlers: {
       slider: {
         onScroll: handleScroll,
@@ -206,11 +156,6 @@ export const useSlider = (children: React.ReactNode) => {
         onPointerLeave: onSliderUp,
         onClickCapture,
         onDragStart: (e: React.DragEvent) => e.preventDefault(),
-      },
-      bar: {
-        onPointerDown: onBarDown,
-        onPointerMove: onBarMove,
-        onPointerUp: onBarUp,
       },
     },
   };

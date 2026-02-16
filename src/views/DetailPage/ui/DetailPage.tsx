@@ -26,7 +26,7 @@ export const DetailPage = ({ id }: DetailPageProps) => {
         <Header.Cart />
       </Header>
       <Main>
-        <Main.TopBar className="z-sub-header sticky top-20">
+        <Main.TopBar className="z-sub-header sticky top-20 bg-surface">
           <Button
             className="py-3 text-xs uppercase"
             variant="plain"

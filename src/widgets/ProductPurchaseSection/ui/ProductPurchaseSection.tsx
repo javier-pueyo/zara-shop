@@ -54,7 +54,7 @@ export const ProductPurchaseSection = ({
         className,
       )}
     >
-      <div className="relative flex justify-center">
+      <div className="relative flex">
         {lastImage && lastImage !== currentImage && (
           <Media
             src={lastImage}

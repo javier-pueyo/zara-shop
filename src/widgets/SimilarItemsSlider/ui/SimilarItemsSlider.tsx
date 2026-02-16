@@ -19,16 +19,15 @@ export const SimilarItemsSlider = ({
         Similar Items
       </Typography>
 
-      <Slider
-        className="mt-10"
-        breakout
-        trackClassName="max-w-[1200px] mx-auto tablet:px-10 px-4"
-      >
-        {products.map((product) => (
-          <Slider.Item key={product.id}>
-            <ProductCard product={product} />
-          </Slider.Item>
-        ))}
+      <Slider className="mt-10">
+        <Slider.Content>
+          {products.map((product) => (
+            <Slider.Item key={product.id}>
+              <ProductCard product={product} />
+            </Slider.Item>
+          ))}
+        </Slider.Content>
+        <Slider.Bar />
       </Slider>
     </div>
   );
